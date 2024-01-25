@@ -108,12 +108,12 @@
                                                     <input type="text" class="form-control" id="inputHotel"
                                                         placeholder="Restaurant Name">
                                                 </div>
-                                                <div class="form-group col-lg-3">
-                                                    <input type="text" class="form-control" id="inputLocation"
-                                                        placeholder="All Locations">
-                                                    <span class="location_icon">
-                                                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                                                    </span>
+                                                <div class="form-group col-lg-2">
+                                                    <select id="fruit" name="fruit" style="width: 100px">
+                                                        <option value="category">Category</option>
+                                                        <option value="banana">Pisang</option>
+                                                        <option value="orange">Jeruk</option>
+                                                    </select>
                                                 </div>
                                                 <div class="form-group col-lg-3">
                                                     <div class="btn-box">
@@ -174,6 +174,40 @@
         </section>
         <!-- end slider section -->
     </div>
+
+    <section class="news_section">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Result Search
+                </h2>
+            </div>
+            <div class="row">
+                @foreach ($recipes as $recipe)
+                    <div class="col-md-4">
+                        <div class="box">
+                            <div class="img-box">
+                                <img src="{{ $recipe['image'] }}" class="box-img" alt=""
+                                    style="width: 150px; height:150px; border-radius:100%; object-fit: cover;">
+                            </div>
+                            <div class="detail-box">
+                                <h4 style="max-lines: 2">
+                                    {{ $recipe['name'] }}
+                                </h4>
+                                {{-- <xmp>
+                                    {{ $recipe['content'] }}
+                                </xmp> --}}
+                                <a href="{{ route('detailRecipe', ['id' => $recipe['id']]) }}">
+                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+        </div>
+    </section>
 
 
     <!-- recipe section -->

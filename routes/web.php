@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RecipesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landingPage.index');
 });
+
+Route::get('/search', [RecipesController::class, 'featchRecipes'])->name('featchRecipes');
+Route::get('/detail-recipe{id}', [RecipesController::class, 'detailRecipe'])->name('detailRecipe');

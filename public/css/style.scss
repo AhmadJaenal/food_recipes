@@ -462,9 +462,11 @@ a:focus {
       flex-direction: column;
       align-items: center;
       margin-top: 15px;
-h4{
-  @include secondary-font();
-}
+
+      h4 {
+        @include secondary-font();
+      }
+
       a {
         width: 45px;
         height: 45px;
