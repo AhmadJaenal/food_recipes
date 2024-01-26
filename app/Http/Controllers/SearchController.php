@@ -14,16 +14,16 @@ class SearchController extends Controller
         $apiKey = env('API_KEY');
 
         if ($request->has('searchInput')) {
-            $response = Http::get("https://api.spoonacular.com/food/products/search", [
+            $response = Http::get("https://api.spoonacular.com/recipes/complexSearch", [
                 'apiKey' => $apiKey,
                 'query' => $request->searchInput,
+                // 'cuisine' => $request->searchInput,
                 'number' => 5,
             ]);
 
             if ($response->status() == 200) {
-                $resultRecipes = $response->json()['products'];
+                $resultRecipes = $response->json()['results'];
                 return view('landingpage.search_page', compact('resultRecipes'));
-                // dd($resultRecipes);
             } else {
                 dd('Sorry, the server is having problems');
             }
