@@ -25,7 +25,7 @@ class SearchController extends Controller
                 $resultRecipes = $response->json()['results'];
                 return view('landingpage.search_page', compact('resultRecipes'));
             } else {
-                dd('Sorry, the server is having problems');
+                dd($response->status());
             }
         }
     }

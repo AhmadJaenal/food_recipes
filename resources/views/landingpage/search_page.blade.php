@@ -106,13 +106,38 @@
                                             <div class="form-row ">
                                                 <div class="form-group col-lg-5">
                                                     <input type="text" class="form-control" id="searchInput"
-                                                        name="searchInput" placeholder="Food">
+                                                        name="searchInput" placeholder="Search Recipe Food">
                                                 </div>
                                                 <div class="form-group col-lg-3">
                                                     <div class="btn-box">
                                                         <button type="submit" class="btn ">Search</button>
                                                     </div>
                                                 </div>
+                                                <div class="form-group col-lg-2">
+                                                    <div class="btn-box">
+                                                        <button type="button" class="btn btn-warning"
+                                                            id="settingsButton" style="width: 68px">
+                                                            <ion-icon name="settings-sharp"></ion-icon>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div id="additionalInputs" style="display: none;">
+                                                    <div class="form-group col-lg-4">
+                                                        <input type="text" class="form-control"
+                                                            id="includeIngredients" name="includeIngredients"
+                                                            placeholder="Include Ingredients">
+                                                    </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <input type="text" class="form-control"
+                                                            id="excludeIngredients" name="excludeIngredients"
+                                                            placeholder="Exclude Ingredients">
+                                                    </div>
+                                                    <div class="form-group col-lg-4">
+                                                        <input type="text" class="form-control" id="type"
+                                                            name="type" placeholder="Type">
+                                                    </div>
+                                                </div>
+
                                             </div>
                                         </form>
                                     </div>
@@ -181,7 +206,7 @@
                         <div class="box">
                             <div class="img-box">
                                 <img src="{{ $recipe['image'] }}" class="box-img" alt=""
-                                    style="width: 150px; height:150px; border-radius:100%; object-fit: cover;">
+                                    style="width: 150px; height:150px; border-radius:100%; object-fit: cover;  border: 8px solid black;">
                             </div>
                             <div class="detail-box">
                                 <div style="height: 100px;">
@@ -354,7 +379,22 @@
     <!-- custom js -->
     <script src="js/custom.js"></script>
 
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
 
 </body>
+
+<script>
+    document.getElementById("settingsButton").addEventListener("click", function() {
+        var additionalInputs = document.getElementById("additionalInputs");
+        // Toggle the display property of additionalInputs
+        if (additionalInputs.style.display === "none") {
+            additionalInputs.style.display = "flex";
+        } else {
+            additionalInputs.style.display = "none";
+        }
+    });
+</script>
 
 </html>

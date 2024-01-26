@@ -20,7 +20,7 @@ class RecipesController extends Controller
             $recipes = $response->json()['searchResults'][0]['results'];
             return view('landingpage.index', compact('recipes'));
         } else {
-            dd('Sorry, the server is having problems');
+            dd($response->status());
         }
     }
 
@@ -34,7 +34,7 @@ class RecipesController extends Controller
             $detailRecipe = $response->json();
             dd($detailRecipe);
         } else {
-            dd('Sorry, the server is having problems');
+            dd($response->status());
         }
     }
 }

@@ -188,10 +188,12 @@
                         <div class="box">
                             <div class="img-box">
                                 <img src="{{ $recipe['image'] }}" class="box-img" alt=""
-                                    style="width: 150px; height:150px; border-radius:100%; object-fit: cover;">
+                                    style="width: 150px; height:150px; border-radius:100%; object-fit: cover;  border: 7px solid black;">
                             </div>
                             <div class="detail-box">
-                                <h4 style="max-lines: 2">
+                                <h4
+                                    style="max-height: 58px; overflow: hidden;
+                            text-overflow: ellipsis;">
                                     {{ $recipe['name'] }}
                                 </h4>
 
