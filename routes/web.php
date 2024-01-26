@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RecipesController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,5 +19,7 @@ Route::get('/', function () {
     return view('landingPage.index');
 });
 
-Route::get('/search', [RecipesController::class, 'featchRecipes'])->name('featchRecipes');
+Route::get('/recipes', [RecipesController::class, 'featchRecipes'])->name('featchRecipes');
 Route::get('/detail-recipe{id}', [RecipesController::class, 'detailRecipe'])->name('detailRecipe');
+
+Route::get('/search-recipe', [SearchController::class, 'searchGrocery'])->name('searchGrocery');

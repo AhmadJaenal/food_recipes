@@ -11,8 +11,8 @@ class RecipesController extends Controller
 {
     public function featchRecipes()
     {
-        $apiKey = env('API_KEY');
 
+        $apiKey = env('API_KEY');
         $response = Http::get("https://api.spoonacular.com/food/search", [
             'apiKey' => $apiKey,
         ]);
