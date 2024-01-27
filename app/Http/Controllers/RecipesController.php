@@ -22,12 +22,27 @@ class RecipesController extends Controller
         } else {
             dd($response->status());
         }
+        return view('landingpage.index');
     }
 
     public function detailRecipe($id)
     {
         $apiKey = env('API_KEY');
         $response = Http::get("https://api.spoonacular.com/recipes/{$id}/information",  [
+            'apiKey' => $apiKey,
+        ]);
+        if ($response->status() == 200) {
+            $detailRecipe = $response->json();
+            dd($detailRecipe);
+        } else {
+            dd($response->status());
+        }
+    }
+
+    public function fetchIngredient($id)
+    {
+        $apiKey = env('API_KEY');
+        $response = Http::get("https://api.spoonacular.com/food/ingredients/{$id}/information",  [
             'apiKey' => $apiKey,
         ]);
         if ($response->status() == 200) {

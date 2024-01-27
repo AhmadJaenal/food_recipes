@@ -17,8 +17,9 @@ class SearchController extends Controller
             $response = Http::get("https://api.spoonacular.com/recipes/complexSearch", [
                 'apiKey' => $apiKey,
                 'query' => $request->searchInput,
-                // 'cuisine' => $request->searchInput,
-                'number' => 5,
+                'includeIngredients' => $request->includeIngredients,
+                'excludeIngredients' => $request->excludeIngredients,
+                'type' =>  $request->type,
             ]);
 
             if ($response->status() == 200) {
