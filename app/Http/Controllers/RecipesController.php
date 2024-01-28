@@ -32,8 +32,9 @@ class RecipesController extends Controller
             'apiKey' => $apiKey,
         ]);
         if ($response->status() == 200) {
-            $detailRecipe = $response->json();
-            dd($detailRecipe);
+            $detailRecipe = $response->json()['analyzedInstructions'][0]['steps'];
+            return view('landingpage.detail_recipe', compact('detailRecipe'));
+            // dd($detailRecipe);
         } else {
             dd($response->status());
         }
@@ -62,7 +63,6 @@ class RecipesController extends Controller
         ]);
         if ($response->status() == 200) {
             $recipes = $response->json()['results'];
-            // dd($recipes);
             return view('landingpage.category_food', compact('recipes', 'type'));
         } else {
             dd($response->status());
