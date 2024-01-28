@@ -35,6 +35,10 @@ class RecipesController extends Controller
             $detailRecipe = $response->json()['analyzedInstructions'][0]['steps'];
             return view('landingpage.detail_recipe', compact('detailRecipe'));
             // dd($detailRecipe);
+
+            // $detailRecipe = $response->json();
+            // dd($detailRecipe);
+            // return view('landingpage.detail_food', compact('detailRecipe'));
         } else {
             dd($response->status());
         }
