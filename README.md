@@ -1,6 +1,10 @@
 ## How to install
 
 ```bash
+git clone https://github.com/AhmadJaenal/food_recipes.git
+```
+
+```bash
 composer install
 ```
 
