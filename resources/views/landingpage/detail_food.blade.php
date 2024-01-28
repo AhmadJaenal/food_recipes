@@ -101,16 +101,16 @@
                 </h2>
             </div>
 
-            <div class="row">
+            <div class="row justify-content-center">
                 <!-- Left Side - Image -->
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="img-box">
                         <img src="{{ $detailRecipe['image'] }}" class="box-img" alt="" style="width: 100%;">
                     </div>
                 </div>
             
                 <!-- Right Side - Table -->
-                <div class="col-md-6 mt-4">
+                <div class="col-md-4">
                     <table class="table table-sm">
                         <thead>
                             <tr>
@@ -213,6 +213,23 @@
                         </tbody>
                         </table>
                 </div>
+            </div>
+            <div class="row justify-content-center">
+                <h3>Ingredients</h3>
+            </div>
+            <div class="row justify-content-center">
+                <h3>Preparation</h3><br>
+                @foreach ($detailRecipe['analyzedInstructions'][0]['steps'] as $recipe)
+                    <p>{{ $recipe['number'] }} {{ $recipe['step'] }}</p>
+            
+                    @foreach ($recipe['ingredients'] as $ingredients)
+                        <p>{{ $ingredients['name'] }}</p>
+                    @endforeach
+            
+                    @foreach ($recipe['equipment'] as $equipment)
+                        <p>{{ $equipment['name'] }}</p>
+                    @endforeach
+                @endforeach
             </div>
             
             
