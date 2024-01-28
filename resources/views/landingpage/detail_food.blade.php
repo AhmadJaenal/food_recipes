@@ -96,8 +96,8 @@
         <div class="container">
             <div class="heading_container heading_center mb-5">
                 <h2>
-                    {{-- {{ $detailRecipe['title'] }} --}}
-                    Anticuchos Of White Seabass With Aji Chile Honey Marinade & Semilla Salsa
+                    {{ $detailRecipe['title'] }}
+                    {{-- Anticuchos Of White Seabass With Aji Chile Honey Marinade & Semilla Salsa --}}
                 </h2>
             </div>
 
@@ -105,7 +105,8 @@
                 <!-- Left Side - Image -->
                 <div class="col-md-6">
                     <div class="img-box">
-                        <img src="https://spoonacular.com/recipeImages/632426-556x370.jpg" class="box-img" alt="" style="width: 100%;">
+                        <img src="{{ $detailRecipe['image'] }}" class="box-img" alt="" style="width: 100%;">
+                        {{-- <img src="https://spoonacular.com/recipeImages/632426-556x370.jpg" class="box-img" alt="" style="width: 100%;"> --}}
                     </div>
                 </div>
             
@@ -123,82 +124,92 @@
                                 <tr>
                                 <td>Vegetarian</td>
                                 <td>
-                                    <?php
-                                    $vegetarian = false;
-                                    echo ($vegetarian) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['vegetarian'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Vegan</td>
                                 <td>
-                                    <?php
-                                    $vegan = false;
-                                    echo ($vegan) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['vegan'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Gluten-Free</td>
                                 <td>
-                                    <?php
-                                    $glutenFree = true;
-                                    echo ($glutenFree) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['glutenFree'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Dairy-Free</td>
                                 <td>
-                                    <?php
-                                    $dairyFree = true;
-                                    echo ($dairyFree) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['dairyFree'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Very Healthy</td>
                                 <td>
-                                    <?php
-                                    $veryHealthy = false;
-                                    echo ($veryHealthy) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['veryHealthy'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Cheap</td>
                                 <td>
-                                    <?php
-                                    $cheap = false;
-                                    echo ($cheap) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['cheap'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Very Popular</td>
                                 <td>
-                                    <?php
-                                    $veryPopular = false;
-                                    echo ($veryPopular) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['veryPopular'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Sustainable</td>
                                 <td>
-                                    <?php
-                                    $sustainable = false;
-                                    echo ($sustainable) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['sustainable'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
                                 </td>
                                 </tr>
                                 <tr>
                                 <td>Low Fodmap</td>
                                 <td>
-                                    <?php
-                                    $lowFodmap = false;
-                                    echo ($lowFodmap) ? '<span class="text-success">&#10004;</span>' : '<span class="text-danger">&#10008;</span>';
-                                    ?>
+                                    @if ($detailRecipe['lowFodmap'])
+                                        <span class="text-success">&#10004;</span>
+                                    @else
+                                        <span class="text-danger">&#10008;</span>
+                                    @endif
+
                                 </td>
                                 </tr>
                             </tbody>
