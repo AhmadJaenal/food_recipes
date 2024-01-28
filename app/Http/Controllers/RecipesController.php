@@ -61,8 +61,9 @@ class RecipesController extends Controller
             'type' => $type,
         ]);
         if ($response->status() == 200) {
-            $detailRecipe = $response->json();
-            dd($detailRecipe);
+            $recipes = $response->json()['results'];
+            // dd($recipes);
+            return view('landingpage.category_food', compact('recipes', 'type'));
         } else {
             dd($response->status());
         }
