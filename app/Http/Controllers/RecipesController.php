@@ -52,4 +52,19 @@ class RecipesController extends Controller
             dd($response->status());
         }
     }
+
+    public function foodCategory($type)
+    {
+        $apiKey = env('API_KEY');
+        $response = Http::get("https://api.spoonacular.com/recipes/complexSearch",  [
+            'apiKey' => $apiKey,
+            'type' => $type,
+        ]);
+        if ($response->status() == 200) {
+            $detailRecipe = $response->json();
+            dd($detailRecipe);
+        } else {
+            dd($response->status());
+        }
+    }
 }

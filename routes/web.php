@@ -23,3 +23,4 @@ Route::get('/recipes', [RecipesController::class, 'featchRecipes'])->name('featc
 Route::get('/detail-recipe{id}', [RecipesController::class, 'detailRecipe'])->name('detailRecipe');
 
 Route::get('/search-recipe', [SearchController::class, 'searchGrocery'])->name('searchGrocery');
+Route::get('/category-food{type}', [RecipesController::class, 'foodCategory'])->name('foodCategory');

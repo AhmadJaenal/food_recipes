@@ -246,7 +246,7 @@
                             <h4>
                                 Breakfast
                             </h4>
-                            <a href="">
+                            <a href="{{ route('foodCategory', ['type' => 'breakfast']) }}">
                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -259,9 +259,9 @@
                         </div>
                         <div class="detail-box">
                             <h4>
-                                Lunch
+                                Appetizer
                             </h4>
-                            <a href="">
+                            <a href="{{ route('foodCategory', ['type' => 'appetizer']) }}">
                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                             </a>
                         </div>
@@ -274,9 +274,10 @@
                         </div>
                         <div class="detail-box">
                             <h4>
-                                Dinner
+                                Dessert
                             </h4>
-                            <a href="">
+                            <a href="{{ route('foodCategory', ['type' => 'dessert']) }}">
+
                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>
                             </a>
                         </div>
