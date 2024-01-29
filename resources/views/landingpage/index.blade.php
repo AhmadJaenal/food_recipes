@@ -284,11 +284,6 @@
                     </div>
                 </div>
             </div>
-            <div class="btn-box">
-                <a href="">
-                    Order Now
-                </a>
-            </div>
         </div>
     </section>
 
