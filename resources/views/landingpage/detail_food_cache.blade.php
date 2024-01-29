@@ -11,6 +11,8 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <title>Delfood</title>
 
@@ -93,7 +95,7 @@
         <!-- end slider section -->
     </div>
 
-        <section class="news_section">
+    <section class="news_section">
         <div class="container">
             <div class="heading_container heading_center mb-5">
                 <h2>
@@ -105,76 +107,77 @@
                 <!-- Left Side - Image -->
                 <div class="col-md-4">
                     <div class="img-box">
-                        <img src="https://spoonacular.com/recipeImages/632426-556x370.jpg" class="box-img" alt="">
+                        <img src="https://spoonacular.com/recipeImages/632426-556x370.jpg" class="box-img"
+                            alt="">
                     </div>
                 </div>
-            
+
                 <!-- Right Side - Table -->
                 <div class="col-md-4">
                     <table class="table table-sm">
                         <thead>
                             <tr>
-                            <th>Property</th>
-                            <th>Status</th>
+                                <th>Property</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                            <td>Vegetarian</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Vegetarian</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Vegan</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Vegan</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Gluten-Free</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Gluten-Free</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Dairy-Free</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Dairy-Free</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Very Healthy</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Very Healthy</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Cheap</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Cheap</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Very Popular</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Very Popular</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Sustainable</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Sustainable</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                             <tr>
-                            <td>Low Fodmap</td>
-                            <td>
-                                <span class="text-success">&#10004;</span>
-                            </td>
+                                <td>Low Fodmap</td>
+                                <td>
+                                    <span class="text-success">&#10004;</span>
+                                </td>
                             </tr>
                         </tbody>
-                        </table>
+                    </table>
                 </div>
             </div>
             <div class="row justify-content-center">
@@ -183,9 +186,9 @@
             <div class="row justify-content-center">
                 <h3>Preparation</h3>
             </div>
-            
-            
-              
+
+
+
         </div>
     </section>
 
@@ -282,4 +285,5 @@
 
 
 </body>
+
 </html>

@@ -11,6 +11,8 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
     <title>Delfood</title>
 
@@ -232,10 +234,6 @@
                     @endforeach
                 @endforeach
             </div>
-
-
-
-            >>>>>>> 70b7da7f5d409d8b559555aefe392c8fdfc5af09
         </div>
     </section>
 

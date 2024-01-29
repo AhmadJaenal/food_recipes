@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RecipesController;
+use App\Http\Controllers\RestaurantsController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,5 @@ Route::get('/detail-recipe{id}', [RecipesController::class, 'detailRecipe'])->na
 
 Route::get('/search-recipe', [SearchController::class, 'searchGrocery'])->name('searchGrocery');
 Route::get('/category-food{type}', [RecipesController::class, 'foodCategory'])->name('foodCategory');
+
+Route::get('/search-restaurants', [SearchController::class, 'searchRestaurants'])->name('searchRestaurants');

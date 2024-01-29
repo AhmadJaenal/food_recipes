@@ -11,9 +11,8 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-    <title>Delfood</title>
+    <title>Restaurants</title>
 
 
     <!-- bootstrap core css -->
@@ -33,6 +32,8 @@
         integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css.map"
         integrity="undefined" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
 
     <!-- Custom styles for this template -->
@@ -101,51 +102,13 @@
                         </div>
                         <div class="find_container ">
                             <div class="container">
-                                <div class="row ">
+                                <div class="row">
                                     <div class="col">
-                                        <form action="{{ route('searchGrocery') }}" method="GET">
-                                            <div class="form-row">
-                                                <div class="form-group col-lg-5">
-                                                    <input type="text" class="form-control" id="searchInput"
-                                                        name="searchInput" placeholder="Search Recipe Food">
-                                                </div>
-                                                <div class="form-group col-lg-3">
-                                                    <div class="btn-box">
-                                                        <button type="submit" class="btn ">Search</button>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group col-lg-2">
-                                                    <div class="btn-box">
-                                                        <button type="button" class="btn btn-warning"
-                                                            id="settingsButton" style="width: 68px">
-                                                            <ion-icon name="settings-sharp"></ion-icon>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                                <div id="additionalInputs" style="display: none;">
-                                                    <div class="form-group col-lg-4">
-                                                        <input type="text" class="form-control"
-                                                            id="includeIngredients" name="includeIngredients"
-                                                            placeholder="Include Ingredients">
-                                                    </div>
-                                                    <div class="form-group col-lg-4">
-                                                        <input type="text" class="form-control"
-                                                            id="excludeIngredients" name="excludeIngredients"
-                                                            placeholder="Exclude Ingredients">
-                                                    </div>
-                                                    <div class="form-group col-lg-4">
-                                                        <input type="text" class="form-control" id="type"
-                                                            name="type" placeholder="Type">
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </form>
                                         <form action="{{ route('searchRestaurants') }}" method="GET">
-                                            <div class="form-row">
-                                                <div class="form-group col-lg-6">
+                                            <div class="form-row ">
+                                                <div class="form-group col-lg-5">
                                                     <input type="text" class="form-control" id="cuisine"
-                                                        name="cuisine" placeholder="Search Restaurants">
+                                                        name="cuisine" placeholder="Cuisine">
                                                 </div>
                                                 <div class="form-group col-lg-3">
                                                     <div class="btn-box">
@@ -211,97 +174,31 @@
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Recipe Recommendations
+                    Restaurant
                 </h2>
             </div>
             <div class="row">
-                @foreach ($recipes as $recipe)
-                    <div class="col-md-4">
-                        <div class="box">
-                            <div class="img-box">
-                                <img src="{{ $recipe['image'] }}" class="box-img" alt=""
-                                    style="width: 150px; height:150px; border-radius:100%; object-fit: cover;  border: 7px solid black;">
-                            </div>
-                            <div class="detail-box">
-                                <h4
-                                    style="max-height: 58px; overflow: hidden;
-                            text-overflow: ellipsis;">
-                                    {{ $recipe['name'] }}
-                                </h4>
-
-                                <a href="{{ route('detailRecipe', ['id' => $recipe['id']]) }}">
-                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                </a>
-                            </div>
+                @foreach ($restaurants as $detail)
+                    <div class="card m-3 mt-3" style="width: 16rem;">
+                        <img class="card-img-top" src="{{ $detail['logo_photos'][0] }}" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $detail['name'] }}</h5>
+                            <p class="card-text">{{ $detail['description'] }}</p>
                         </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Rating {{ $detail['aggregated_rating_count'] }}/100</li>
+                            <li class="list-group-item">Call Number {{ $detail['phone_number'] }}</li>
+                            @if ($detail['is_open'] == true)
+                                <li>Open</li>
+                            @else
+                                <li>Closed</li>
+                            @endif
+                        </ul>
                     </div>
                 @endforeach
             </div>
         </div>
     </section>
-
-
-    <!-- recipe section -->
-
-    <section class="recipe_section layout_padding-top">
-        <div class="container">
-            <div class="heading_container heading_center">
-                <h2>
-                    Our Best Popular Recipes
-                </h2>
-            </div>
-            <div class="row">
-                <div class="col-sm-6 col-md-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/r1.jpg" class="box-img" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h4>
-                                Breakfast
-                            </h4>
-                            <a href="{{ route('foodCategory', ['type' => 'breakfast']) }}">
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/r2.jpg" class="box-img" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h4>
-                                Appetizer
-                            </h4>
-                            <a href="{{ route('foodCategory', ['type' => 'appetizer']) }}">
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-md-4 mx-auto">
-                    <div class="box">
-                        <div class="img-box">
-                            <img src="images/r3.jpg" class="box-img" alt="">
-                        </div>
-                        <div class="detail-box">
-                            <h4>
-                                Dessert
-                            </h4>
-                            <a href="{{ route('foodCategory', ['type' => 'dessert']) }}">
-
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- end recipe section -->
 
     <!-- app section -->
 
@@ -591,16 +488,5 @@
 
 
 </body>
-
-<script>
-    document.getElementById("settingsButton").addEventListener("click", function() {
-        var additionalInputs = document.getElementById("additionalInputs");
-        if (additionalInputs.style.display === "none") {
-            additionalInputs.style.display = "flex";
-        } else {
-            additionalInputs.style.display = "none";
-        }
-    });
-</script>
 
 </html>

@@ -30,4 +30,27 @@ class SearchController extends Controller
             }
         }
     }
+
+    public function searchRestaurants(Request $request)
+    {
+        $apiKey = env('API_KEY');
+
+        if ($request->has('cuisine')) {
+            $response = Http::get("https://api.spoonacular.com/food/restaurants/search", [
+                'apiKey' => $apiKey,
+                'cuisine' => $request->cuisine,
+                'limit' => 10,
+            ]);
+
+            if ($response->status() == 200) {
+                $restaurants = $response->json()['restaurants'];
+                return view('landingpage.search_restaurants', compact('restaurants'));
+                // dd($restaurants);
+            } else {
+                dd($response->status());
+            }
+        }
+
+        // return view('landingpage.search_restaurants');
+    }
 }
