@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    @foreach ($detailRecipe as $recipe)
+    @foreach ($detailRecipe['analyzedInstructions'][0]['steps'] as $recipe)
         <p>{{ $recipe['number'] }} {{ $recipe['step'] }}</p>
 
         @foreach ($recipe['ingredients'] as $ingredients)
