@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- Basic -->
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -213,9 +215,15 @@
                         </tbody>
                         </table>
                 </div>
+                <div class="col-md-4">
+                    {!! $tasteWidget !!}
+                </div>
             </div>
             <div class="row justify-content-center">
                 <h3>Ingredients</h3>
+                @foreach ($ingredients['ingredients'] as $index => $item)
+                    <p>{{ $index+1 }}. {{ $item['name'] }}</p>
+                @endforeach
             </div>
             <div class="row justify-content-center">
                 <h3>Preparation</h3><br>
@@ -326,8 +334,6 @@
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
-
 
 </body>
 </html>

@@ -31,10 +31,20 @@ class RecipesController extends Controller
         $response = Http::get("https://api.spoonacular.com/recipes/{$id}/information",  [
             'apiKey' => $apiKey,
         ]);
-        if ($response->status() == 200) {
+        $response1 = Http::get("https://api.spoonacular.com/recipes/{$id}/ingredientWidget.json",  [
+            'apiKey' => $apiKey,
+        ]);
+        $response2 = Http::get("https://api.spoonacular.com/recipes/{$id}/tasteWidget",  [
+            'apiKey' => $apiKey,
+        ]);
+        
+        if ($response->status() == 200 and $response1->status() == 200) {
             $detailRecipe = $response->json();
+            $ingredients = $response1->json();
+            $tasteWidget = $response2;
+            // dd($ingredients);
             // dd($detailRecipe);
-            return view('landingpage.detail_food', compact('detailRecipe'));
+            return view('landingpage.detail_food', compact('detailRecipe','ingredients','tasteWidget'));
         } else {
             dd($response->status());
         }
