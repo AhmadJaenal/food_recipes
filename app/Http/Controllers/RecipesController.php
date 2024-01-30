@@ -37,18 +37,23 @@ class RecipesController extends Controller
         $response2 = Http::get("https://api.spoonacular.com/recipes/{$id}/tasteWidget",  [
             'apiKey' => $apiKey,
         ]);
+        // $response3 = Http::get("https://api.spoonacular.com/recipes/{$id}/nutritionLabel.png",  [
+        //     'apiKey' => $apiKey,
+        //     'Content-Type' => 'image',
+        // ]);
         
-        if ($response->status() == 200 and $response1->status() == 200) {
+        
+        if ($response->status() == 200 and $response1->status() == 200 and $response2->status() == 200) {
             $detailRecipe = $response->json();
             $ingredients = $response1->json();
             $tasteWidget = $response2;
+            // $nutritionLabel = $response3;
             // dd($ingredients);
             // dd($detailRecipe);
             return view('landingpage.detail_food', compact('detailRecipe','ingredients','tasteWidget'));
         } else {
             dd($response->status());
         }
-        // return view('landingpage.detail_food_cache');
     }
 
     public function fetchIngredient($id)
