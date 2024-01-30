@@ -34,8 +34,6 @@
         integrity="undefined" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-
-
     <!-- Custom styles for this template -->
     <link href="css/style.css" rel="stylesheet" />
     <!-- responsive style -->
@@ -188,11 +186,16 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Rating {{ $detail['aggregated_rating_count'] }}/100</li>
                             <li class="list-group-item">Call Number {{ $detail['phone_number'] }}</li>
-                            @if ($detail['is_open'] == true)
-                                <li>Open</li>
-                            @else
-                                <li>Closed</li>
-                            @endif
+                            <li class="list-group-item">
+                                @if ($detail['is_open'] == true)
+                                    <p>Open</p>
+                                @else
+                                    <p>Closed</p>
+                                @endif
+
+                            </li>
+                            <li class="list-group-item"><button class="btn btn-primary btn-lg btn-block"><ion-icon
+                                        style="height: 20px" name="location-sharp"></ion-icon></button></li>
                         </ul>
                     </div>
                 @endforeach
@@ -481,6 +484,9 @@
         integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
     <!-- custom js -->
     <script src="js/custom.js"></script>
+    <!-- bootstrap js -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

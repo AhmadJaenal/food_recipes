@@ -43,9 +43,10 @@ class SearchController extends Controller
             ]);
 
             if ($response->status() == 200) {
-                $restaurants = $response->json()['restaurants'];
+                $restaurantsResponse = $response->json()['restaurants'];
+                $restaurants = array_slice($restaurantsResponse, 0, 10);
                 return view('landingpage.search_restaurants', compact('restaurants'));
-                // dd($restaurants);
+                // dd($limitedRestaurants);
             } else {
                 dd($response->status());
             }
