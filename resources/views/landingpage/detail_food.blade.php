@@ -106,7 +106,6 @@
             </div>
 
             <div class="row justify-content-center">
-                <!-- Left Side - Image -->
                 <div class="col-md-4">
                     <div class="img-box">
 
@@ -114,7 +113,6 @@
                     </div>
                 </div>
 
-                <!-- Right Side - Table -->
                 <div class="col-md-4">
                     <table class="table table-sm">
                         <thead>
@@ -223,24 +221,26 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                <h3>Ingredients</h3>
-                @foreach ($ingredients['ingredients'] as $index => $item)
-                    <p>{{ $index+1 }}. {{ $item['name'] }}</p>
-                @endforeach
-            </div>
-            <div class="row justify-content-center">
-                <h3>Preparation</h3><br>
-                @foreach ($detailRecipe['analyzedInstructions'][0]['steps'] as $recipe)
-                    <p>{{ $recipe['number'] }} {{ $recipe['step'] }}</p>
-
-                    @foreach ($recipe['ingredients'] as $ingredients)
-                        <p>{{ $ingredients['name'] }}</p>
+                <div class="col-md-6">
+                    <h3>Ingredients</h3>
+                    @foreach ($ingredients['ingredients'] as $index => $item)
+                        <p>{{ $index+1 }}. {{ $item['name'] }}</p>
                     @endforeach
+                </div>
+                <div class="col-md-6">
+                    <h3>Preparation</h3><br>
+                    @foreach ($detailRecipe['analyzedInstructions'][0]['steps'] as $recipe)
+                        <p>{{ $recipe['number'] }} {{ $recipe['step'] }}</p>
 
-                    @foreach ($recipe['equipment'] as $equipment)
-                        <p>{{ $equipment['name'] }}</p>
+                        @foreach ($recipe['ingredients'] as $ingredients)
+                            <p>{{ $ingredients['name'] }}</p>
+                        @endforeach
+
+                        @foreach ($recipe['equipment'] as $equipment)
+                            <p>{{ $equipment['name'] }}</p>
+                        @endforeach
                     @endforeach
-                @endforeach
+                </div>
             </div>
         </div>
     </section>

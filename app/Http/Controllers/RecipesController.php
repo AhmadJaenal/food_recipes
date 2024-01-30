@@ -38,7 +38,7 @@ class RecipesController extends Controller
             'apiKey' => $apiKey,
         ]);
         
-        if ($response->status() == 200 and $response1->status() == 200) {
+        if ($response->status() == 200 and $response1->status() == 200 and $response2->status() == 200) {
             $detailRecipe = $response->json();
             $ingredients = $response1->json();
             $tasteWidget = $response2;
@@ -48,7 +48,6 @@ class RecipesController extends Controller
         } else {
             dd($response->status());
         }
-        // return view('landingpage.detail_food_cache');
     }
 
     public function fetchIngredient($id)
