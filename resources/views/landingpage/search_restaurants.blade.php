@@ -192,10 +192,11 @@
                                 @else
                                     <p>Closed</p>
                                 @endif
-
                             </li>
-                            <li class="list-group-item"><button class="btn btn-primary btn-lg btn-block"><ion-icon
-                                        style="height: 20px" name="location-sharp"></ion-icon></button></li>
+                            <li class="list-group-item"><a
+                                    href="https://www.google.com/maps/place/{{ $detail['address']['street_addr'], $detail['address']['city'], $detail['address']['state'] }}"
+                                    class="btn btn-primary btn-lg btn-block"><ion-icon style="height: 20px"
+                                        name="location-sharp" style="color: white"></ion-icon></a></li>
                         </ul>
                     </div>
                 @endforeach

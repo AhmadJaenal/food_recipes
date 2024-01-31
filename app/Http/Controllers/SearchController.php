@@ -39,14 +39,13 @@ class SearchController extends Controller
             $response = Http::get("https://api.spoonacular.com/food/restaurants/search", [
                 'apiKey' => $apiKey,
                 'cuisine' => $request->cuisine,
-                'limit' => 10,
             ]);
 
             if ($response->status() == 200) {
                 $restaurantsResponse = $response->json()['restaurants'];
                 $restaurants = array_slice($restaurantsResponse, 0, 10);
                 return view('landingpage.search_restaurants', compact('restaurants'));
-                // dd($limitedRestaurants);
+                // dd($restaurants);
             } else {
                 dd($response->status());
             }

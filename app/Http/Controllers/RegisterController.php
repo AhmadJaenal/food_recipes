@@ -13,7 +13,7 @@ class RegisterController extends Controller
     {
         return view('register');
     }
-    
+
     public function actionregister(Request $request)
     {
         $user = User::create([
