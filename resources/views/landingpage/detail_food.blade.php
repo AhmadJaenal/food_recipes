@@ -48,46 +48,7 @@
 <body>
 
     <div class="hero_area">
-        <!-- header section strats -->
-        <header class="header_section">
-            <div class="container-fluid">
-                <nav class="navbar navbar-expand-lg custom_nav-container">
-                    <a class="navbar-brand" href="index.html">
-                        <span>
-                            Delfood
-                        </span>
-                    </a>
-                    <div class="" id="">
-                        <div class="User_option">
-                            <a href="">
-                                <i class="fa fa-user" aria-hidden="true"></i>
-                                <span>Login</span>
-                            </a>
-                            <form class="form-inline ">
-                                <input type="search" placeholder="Search" />
-                                <button class="btn  nav_search-btn" type="submit">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </button>
-                            </form>
-                        </div>
-                        <div class="custom_menu-btn">
-                            <button onclick="openNav()">
-                                <img src="images/menu.png" alt="">
-                            </button>
-                        </div>
-                        <div id="myNav" class="overlay">
-                            <div class="overlay-content">
-                                <a href="index.html">Home</a>
-                                <a href="about.html">About</a>
-                                <a href="blog.html">Blog</a>
-                                <a href="testimonial.html">Testimonial</a>
-                            </div>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-        </header>
-        <!-- end header section -->
+        @include('partials.header')
 
         <!-- slider section -->
         <div class="m-5">
@@ -257,74 +218,8 @@
 
     <!-- end client section -->
 
-    <div class="footer_container">
-        <!-- info section -->
-        <section class="info_section ">
-            <div class="container">
-                <div class="contact_box">
-                    <a href="">
-                        <i class="fa fa-map-marker" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-phone" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </a>
-                </div>
-                <div class="info_links">
-                    <ul>
-                        <li class="active">
-                            <a href="index.html">
-                                Home
-                            </a>
-                        </li>
-                        <li>
-                            <a href="about.html">
-                                About
-                            </a>
-                        </li>
-                        <li>
-                            <a class="" href="blog.html">
-                                Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a class="" href="testimonial.html">
-                                Testimonial
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="social_box">
-                    <a href="">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                    </a>
-                    <a href="">
-                        <i class="fa fa-linkedin" aria-hidden="true"></i>
-                    </a>
-                </div>
-            </div>
-        </section>
-        <!-- end info_section -->
+    @include('partials.footer')
 
-
-        <!-- footer section -->
-        <footer class="footer_section">
-            <div class="container">
-                <p>
-                    &copy; <span id="displayYear"></span> All Rights Reserved By
-                    <a href="https://html.design/">Free Html Templates</a><br>
-                    Distributed By: <a href="https://themewagon.com/">ThemeWagon</a>
-                </p>
-            </div>
-        </footer>
-        <!-- footer section -->
-
-    </div>
     <!-- jQery -->
     <script src="js/jquery-3.4.1.min.js"></script>
     <!-- bootstrap js -->
