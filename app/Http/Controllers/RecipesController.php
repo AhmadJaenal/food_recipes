@@ -41,8 +41,8 @@ class RecipesController extends Controller
         //     'apiKey' => $apiKey,
         //     'Content-Type' => 'image',
         // ]);
-        
-        
+
+
         if ($response->status() == 200 and $response1->status() == 200 and $response2->status() == 200) {
             $detailRecipe = $response->json();
             $ingredients = $response1->json();
@@ -50,7 +50,7 @@ class RecipesController extends Controller
             // $nutritionLabel = $response3;
             // dd($ingredients);
             // dd($detailRecipe);
-            return view('landingpage.detail_food', compact('detailRecipe','ingredients','tasteWidget'));
+            return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget'));
         } else {
             dd($response->status());
         }
