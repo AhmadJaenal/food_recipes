@@ -32,11 +32,11 @@ class LoginController extends Controller
             ]);
             if ($response->status() == 200) {
                 $recipes = $response->json()['searchResults'][0]['results'];
-                return view('landingpage.index', compact('recipes'));
+                return redirect()->back()->with(compact('recipes'));
             } else {
                 dd($response->status());
             }
-            return view('landingpage.index');
+            return redirect();
         }else{
             Session::flash('error', 'Email atau Password Salah');
             return redirect()->back();
@@ -46,6 +46,6 @@ class LoginController extends Controller
     public function actionlogout()
     {
         Auth::logout();
-        return redirect('/');
+        return redirect()->back();
     }
 }

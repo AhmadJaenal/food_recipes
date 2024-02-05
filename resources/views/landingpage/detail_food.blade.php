@@ -57,9 +57,11 @@
         </div>
         <!-- end slider section -->
     </div>
-
     <section class="news_section">
         <div class="container">
+            <a href="{{ URL::previous() }}" class="btn btn-primary btn-lg rounded-circle">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
             <div class="heading_container heading_center mb-5">
                 <h2>
                     {{ $detailRecipe['title'] }}
