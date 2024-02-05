@@ -6,6 +6,8 @@
       text-align: center;
     }
   </style>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 
 <!-- header section strats -->
         <header class="header_section">
@@ -32,7 +34,7 @@
                                     </div>
                                 </div>
                             @else
-                                <a href="" data-toggle="modal" data-target="#loginModal">
+                                <a href="" id="openLoginModal" data-toggle="modal" data-target="#loginModal">
                                     <i class="fa fa-user" aria-hidden="true"></i>
                                     <span>Login</span>
                                 </a>
@@ -74,6 +76,20 @@
           </button>
         </div>
         <div class="modal-body">
+            @if(session('error'))
+            <script>
+                $(document).ready(function(){
+                    // Seleksi elemen tautan berdasarkan ID
+                    var openModalLink = $('#openLoginModal');
+                
+                    // Trigger klik pada tautan saat halaman dimuat
+                    openModalLink.trigger('click');
+                });
+            </script>
+            <div class="alert alert-danger">
+                <b>Opps!</b> {{session('error')}}
+            </div>
+            @endif
             <form action="{{ route('actionlogin') }}" method="post">
                 @csrf
                 <div class="form-group">
@@ -84,7 +100,7 @@
                     <label><i class="fa fa-key"></i> Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                 </div>
-                <p class="text-center fs-6">Belum punya akun? <a href="" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register</a> sekarang!</p>
+                <p class="text-center fs-6">Belum punya akun? <a href="" id="openRegisterModal" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register</a> sekarang!</p>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
         </div>
@@ -103,6 +119,20 @@
           </button>
         </div>
         <div class="modal-body">
+            @if(session('message'))
+                <script>
+                    $(document).ready(function(){
+                        // Seleksi elemen tautan berdasarkan ID
+                        var openModalLink = $('#openRegisterModal');
+                    
+                        // Trigger klik pada tautan saat halaman dimuat
+                        openModalLink.trigger('click');
+                    });
+                </script>
+                <div class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            @endif
             <form action="{{ route('actionregister') }}" method="post">
                 @csrf
                 <div class="form-group">

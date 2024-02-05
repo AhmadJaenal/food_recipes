@@ -39,7 +39,7 @@ class LoginController extends Controller
             return view('landingpage.index');
         }else{
             Session::flash('error', 'Email atau Password Salah');
-            return redirect('/login');
+            return redirect()->back();
         }
     }
 
