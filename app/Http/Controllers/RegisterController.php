@@ -22,7 +22,7 @@ class RegisterController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        Session::flash('message', 'Register Berhasil. Akun Anda sudah Aktif silahkan Login menggunakan username dan password.');
+        Session::flash('message', 'Registration successful. Your account is now active. Please log in using your username and password.');
         return redirect()->back();
     }
 }

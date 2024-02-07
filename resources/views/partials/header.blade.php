@@ -20,6 +20,13 @@
                     </a>
                     <div class="" id="">
                         <div class="User_option">
+                            <a class="btn" type="submit" href="{{route('favorites')}}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
+                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
+                                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
+                                </svg>
+                                <span>Favorites</span>
+                            </a>
                             @if(Auth::check())
                                 <div class="dropdown">
                                     <a class="btn dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,13 +52,6 @@
                                     <i class="fa fa-search" aria-hidden="true"></i>
                                 </button>
                             </form> --}}
-                            <a class="btn" type="submit" href="{{route('favorites')}}">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16">
-                                    <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                                    <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                                </svg>
-                                <span>Favorites</span>
-                            </a>
                         </div>
                         <div class="custom_menu-btn">
                             <button onclick="openNav()">
@@ -107,7 +107,7 @@
                     <label><i class="fa fa-key"></i> Password</label>
                     <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
                 </div>
-                <p class="text-center fs-6">Belum punya akun? <a href="" id="openRegisterModal" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register</a> sekarang!</p>
+                <p class="text-center fs-6">Do not have an account? <a href="" id="openRegisterModal" data-toggle="modal" data-target="#registerModal" data-dismiss="modal">Register</a> Now!</p>
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
         </div>
@@ -129,10 +129,8 @@
             @if(session('message'))
                 <script>
                     $(document).ready(function(){
-                        // Seleksi elemen tautan berdasarkan ID
                         var openModalLink = $('#openRegisterModal');
                     
-                        // Trigger klik pada tautan saat halaman dimuat
                         openModalLink.trigger('click');
                     });
                 </script>
@@ -144,17 +142,17 @@
                 @csrf
                 <div class="form-group">
                     <label><i class="fa fa-envelope"></i> Email</label>
-                    <input type="email" name="email" class="form-control" placeholder="Email" required="">
+                    <input type="email" name="email" class="form-control" placeholder="Enter Your Email" required="">
                 </div>
                 <div class="form-group">
                     <label><i class="fa fa-user"></i> Username</label>
-                    <input type="text" name="name" class="form-control" placeholder="name" required="">
+                    <input type="text" name="name" class="form-control" placeholder="Enter Your Username" required="">
                 </div>
                 <div class="form-group">
                     <label><i class="fa fa-key"></i> Password</label>
-                    <input type="password" name="password" class="form-control" placeholder="Password" required="">
+                    <input type="password" name="password" class="form-control" placeholder="Enter Your Password" required="">
                 </div>
-                <p class="text-center fs-6">Sudah punya akun silahkan <a href="" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Login Disini!</a></p>
+                <p class="text-center fs-6">If you already have an account, please <a href="" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">Log In</a> here!</p>
                 <button type="submit" class="btn btn-primary btn-block"><i class="fa fa-user"></i>
                     Register</button>
             </form>

@@ -14,7 +14,7 @@ class LoginController extends Controller
         if (Auth::check()) {
             return redirect('home');
         }else{
-            Session::flash('error', 'Oops, please log in first.');
+            Session::flash('error', 'Please Log In First.');
             return redirect()->back();
         }
     }
@@ -39,7 +39,7 @@ class LoginController extends Controller
             }
             return redirect();
         }else{
-            Session::flash('error', 'Email atau Password Salah');
+            Session::flash('error', 'Incorrect email or password.');
             return redirect()->back();
         }
     }
