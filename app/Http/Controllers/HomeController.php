@@ -11,8 +11,4 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function favorites()
-    {
-        return view('landingpage.favorites');
-    }
 }

@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\RecipesController;
-use App\Http\Controllers\RestaurantsController;
-use App\Http\Controllers\SearchController;
-use App\Http\Controllers\LoginController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MapsController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\RecipesController;
+use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\RegisterController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RestaurantsController;
 
 
 Route::get('login', [LoginController::class, 'login'])->name('login');
@@ -28,4 +29,4 @@ Route::get('/category-food{type}', [RecipesController::class, 'foodCategory'])->
 Route::get('/search-restaurants', [SearchController::class, 'searchRestaurants'])->name('searchRestaurants');
 
 
-Route::get('favorites', [HomeController::class, 'favorites'])->name('favorites')->middleware('auth');
+Route::get('favorites', [FavoriteController::class, 'favorites'])->name('favorites')->middleware('auth');
