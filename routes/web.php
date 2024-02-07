@@ -26,3 +26,6 @@ Route::get('/search-recipe', [SearchController::class, 'searchGrocery'])->name('
 Route::get('/category-food{type}', [RecipesController::class, 'foodCategory'])->name('foodCategory');
 
 Route::get('/search-restaurants', [SearchController::class, 'searchRestaurants'])->name('searchRestaurants');
+
+
+Route::get('favorites', [HomeController::class, 'favorites'])->name('favorites')->middleware('auth');

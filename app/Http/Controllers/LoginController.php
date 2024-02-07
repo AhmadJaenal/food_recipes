@@ -14,7 +14,8 @@ class LoginController extends Controller
         if (Auth::check()) {
             return redirect('home');
         }else{
-            return view('login');
+            Session::flash('error', 'Oops, please log in first.');
+            return redirect()->back();
         }
     }
 
