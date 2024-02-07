@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Favorite;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Psr\Http\Message\RequestInterface;
 
@@ -47,10 +49,16 @@ class RecipesController extends Controller
             $detailRecipe = $response->json();
             $ingredients = $response1->json();
             $tasteWidget = $response2;
+            $favorite = Favorite::where('id_user', Auth::user()->id)->where('id_recipe', $id)->first();
+            if ($favorite) {
+                $id_favorite = $favorite->id;
+            } else {
+                $id_favorite = null;
+            }
             // $nutritionLabel = $response3;
             // dd($ingredients);
             // dd($detailRecipe);
-            return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget'));
+            return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget','id_favorite'));
         } else {
             dd($response->status());
         }

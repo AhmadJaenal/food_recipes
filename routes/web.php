@@ -30,3 +30,5 @@ Route::get('/search-restaurants', [SearchController::class, 'searchRestaurants']
 
 
 Route::get('favorites', [FavoriteController::class, 'favorites'])->name('favorites')->middleware('auth');
+Route::post('addFavorite', [FavoriteController::class, 'addFavorite'])->name('addFavorite');
+Route::post('/removeFavorite{id_favorite}',[FavoriteController::class, 'removeFavorite'])->name('removeFavorite')->middleware('auth');
