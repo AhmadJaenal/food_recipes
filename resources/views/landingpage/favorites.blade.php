@@ -44,6 +44,82 @@
     <link href="css/responsive.css" rel="stylesheet" />
 
 </head>
-<h1>Favorites</h1>
+
+<body>
+
+    <div class="hero_area">
+        @include('partials.header')
+
+        <!-- slider section -->
+        <div class="m-5">
+            <div class="m-5">
+            </div>
+        </div>
+        <!-- end slider section -->
+    </div>
+    <section class="news_section">
+        <div class="container">
+            <a href="{{ URL::previous() }}" class="btn btn-primary btn-lg rounded-circle">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </a>
+            <div class="heading_container heading_center mb-5">
+                <h2>
+                    Favorites
+                </h2>
+            </div>
+                <div class="row">
+                    @foreach ($favorites as $favorite)
+                        <div class="col-md-4">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="{{ $favorite->image }}" class="box-img" alt=""
+                                        style="width: 150px; height:150px; border-radius:100%; object-fit: cover;  border: 8px solid black;">
+                                </div>
+                                <div class="detail-box">
+                                    <div style="height: 100px;">
+                                        <h4
+                                            style="max-height: 58px; overflow: hidden;
+                                        text-overflow: ellipsis;">
+                                            {{ $favorite->title }}
+                                        </h4>
+                                    </div>
+
+                                    <a href="{{ route('detailRecipe', ['id' => $favorite->id_recipe]) }}">
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- client section -->
+
+    <section class="client_section layout_padding">
+    </section>
+
+    <!-- end client section -->
+
+    @include('partials.footer')
+
+    <!-- jQery -->
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <!-- bootstrap js -->
+    <script src="js/bootstrap.js"></script>
+    <!-- slick  slider -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+    <!-- nice select -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
+        integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
+    <!-- custom js -->
+    <script src="js/custom.js"></script>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+
+</body>
 
 </html>

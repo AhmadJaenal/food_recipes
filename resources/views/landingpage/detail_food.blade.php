@@ -80,6 +80,7 @@
                                 @csrf
                                 <input type="text" name="id_user" hidden value="{{Auth::user()->id}}">
                                 <input type="text" name="id_recipe" hidden value="{{$detailRecipe['id']}}">
+                                <input type="text" name="title" hidden value="{{$detailRecipe['title']}}">
                                 <input type="text" name="image" hidden value="{{$detailRecipe['image']}}">
                                 <div class="row justify-content-center mt-4">
                                     <button type="submit" class="btn">
@@ -94,6 +95,7 @@
                                 @csrf
                                 <input type="text" name="id_user" hidden value="{{Auth::user()->id}}">
                                 <input type="text" name="id_recipe" hidden value="{{$detailRecipe['id']}}">
+                                <input type="text" name="title" hidden value="{{$detailRecipe['title']}}">
                                 <input type="text" name="image" hidden value="{{$detailRecipe['image']}}">
                                 <div class="row justify-content-center mt-4">
                                     <button type="submit" class="btn">

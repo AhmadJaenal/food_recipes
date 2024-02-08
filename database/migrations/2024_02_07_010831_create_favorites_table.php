@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_user')->constrained('users', 'id');
             $table->string('id_recipe');
+            $table->string('title');
             $table->string('image');
             $table->timestamps();
         });

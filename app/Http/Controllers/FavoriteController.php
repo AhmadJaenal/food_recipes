@@ -9,14 +9,17 @@ use Illuminate\Support\Facades\Auth;
 class FavoriteController extends Controller
 {
     public function favorites()
-    {
-        return view('landingpage.favorites');
+    {   
+        // $favorites = Favorite::all();
+        $favorites = Favorite::where('id_user', Auth::user()->id)->get();
+        return view('landingpage.favorites', compact('favorites'));
     }
     public function addFavorite(Request $request)
     {   
         $favorite = Favorite::create([
             'id_user' => Auth::user()->id,
             'id_recipe' => $request->id_recipe,
+            'title' => $request->title,
             'image' => $request->image,
         ]);
         return redirect()->back();
