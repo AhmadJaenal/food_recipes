@@ -49,10 +49,16 @@ class RecipesController extends Controller
             $detailRecipe = $response->json();
             $ingredients = $response1->json();
             $tasteWidget = $response2;
-            $favorite = Favorite::where('id_user', Auth::user()->id)->where('id_recipe', $id)->first();
-            if ($favorite) {
-                $id_favorite = $favorite->id;
-            } else {
+            if(Auth::check()) {
+                $favorite = Favorite::where('id_user', Auth::user()->id)->where('id_recipe', $id)->first();
+                if($favorite){
+                    $id_favorite = $favorite->id;
+                }
+                else {
+                    $id_favorite = null;
+                }
+            }
+            else {
                 $id_favorite = null;
             }
             // $nutritionLabel = $response3;
