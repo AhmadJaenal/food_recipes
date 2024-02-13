@@ -216,6 +216,12 @@
                     {!! $tasteWidget !!}
                 </div>
             </div>
+
+            <div class="row justify-content-center mb-3">
+                <div class="col-md-12">
+                    {!! $summary['summary'] !!}
+                </div>
+            </div>
             <div class="row justify-content-center">
                 <div class="col-md-4">
                     <ul class="list-group">

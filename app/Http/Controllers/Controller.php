@@ -26,13 +26,12 @@ class Controller extends BaseController
     //     }
     // }
 
-    // Get Ingredient Substitutes
+    // Get Summary
     public function Testing()
     {
         $apiKey = env('API_KEY');
-        $response = Http::get("https://api.spoonacular.com/food/ingredients/substitutes",  [
+        $response = Http::get("https://api.spoonacular.com/recipes/660736/summary",  [
             'apiKey' => $apiKey,
-            'ingredientName' => 'sour cream',
         ]);
         if ($response->status() == 200) {
             $result = $response->json();
