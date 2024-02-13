@@ -98,4 +98,22 @@ class RecipesController extends Controller
             dd($response->status());
         }
     }
+
+
+    public function IngredientSubstitutes($ingredients)
+    {   
+        $apiKey = env('API_KEY');
+        $response = Http::get("https://api.spoonacular.com/food/ingredients/substitutes",  [
+            'apiKey' => $apiKey,
+            'ingredientName' => $ingredients,
+        ]);
+        if ($response->status() == 200) {
+            $substitutes = $response->json();
+            // dd($substitutes);
+            return view('landingpage.ingredient_substitutes', compact('substitutes', 'ingredients'));
+        } else {
+            dd($response->status());
+        }
+    }
+
 }
