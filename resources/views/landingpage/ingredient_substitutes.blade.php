@@ -55,6 +55,8 @@
             <div class="m-5">
             </div>
         </div>
+        <div class="m-3">
+        </div>
         <!-- end slider section -->
     </div>
     <section class="news_section">

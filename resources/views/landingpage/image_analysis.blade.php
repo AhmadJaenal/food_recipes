@@ -42,7 +42,6 @@
     <link href="css/style.css" rel="stylesheet" />
     <!-- responsive style -->
     <link href="css/responsive.css" rel="stylesheet" />
-
 </head>
 
 <body>
@@ -66,35 +65,68 @@
             </a>
             <div class="heading_container heading_center mb-5">
                 <h2>
-                    Favorites
+                    Image Analysis by URL
                 </h2>
             </div>
-                <div class="row">
-                    @foreach ($favorites as $favorite)
-                        <div class="col-md-4">
-                            <div class="box">
-                                <div class="img-box">
-                                    <img src="{{ $favorite->image }}" class="box-img" alt=""
-                                        style="width: 150px; height:150px; border-radius:100%; object-fit: cover;  border: 8px solid black;">
-                                </div>
-                                <div class="detail-box">
-                                    <div style="height: 100px;">
-                                        <h4
-                                            style="max-height: 58px; overflow: hidden;
-                                        text-overflow: ellipsis;">
-                                            {{ $favorite->title }}
-                                        </h4>
-                                    </div>
 
-                                    <a href="{{ route('detailRecipe', ['id' => $favorite->id_recipe]) }}">
-                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                    </a>
+            <div class="row justify-content-center">
+                <div class="col-md-10">
+                    <div class="img-box">
+                        <form action="{{ route('imageAnalysis') }}" method="GET">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="image_url" oninput="previewImage()"
+                                        name="image_url" placeholder="Please input the image URL..." style="width:800px">
+                                </div>
+                                <div class="form-group px-4">
+                                    <div class="btn-box">
+                                        <button type="submit" class="btn btn-warning ">Analyze</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @endforeach
+                        </form>
+                    </div>
                 </div>
             </div>
+
+            @if(isset($analysis))
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div id="image-preview">
+                            <img src="{{$url}}" alt="">
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-4">
+                        <label>Name : {{$analysis['category']['name']}}</label>
+                        <label>Probability : {{$analysis['category']['probability']}}</label>
+                    </div>
+                </div>
+            @else
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div id="image-preview"></div>
+                    </div>
+                </div>
+
+            @endif
+
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    {{-- <ul class="list-group">
+                        <li class="list-group-item disabled">Ingredients</li>
+                        @foreach ($ingredients['ingredients'] as $index => $item)
+                            <li class="list-group-item">{{ $index+1 }}. {{ $item['name'] }} <a href="{{ route('ingredientSubst', ['ingredients' => $item['name']]) }}">Substitute</a></li>
+                        @endforeach
+                    </ul> --}}
+                </div>
+            </div>
+
+
+
+            </div>
+
         </div>
     </section>
 
@@ -122,6 +154,23 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
+    <script>
+        function previewImage() {
+          var imageUrl = document.getElementById('image_url').value;
+          var imagePreview = document.getElementById('image-preview');
+          imagePreview.innerHTML = '';
+
+          var imgElement = document.createElement('img');
+          imgElement.src = imageUrl;
+          imgElement.onload = function() {
+            imagePreview.appendChild(imgElement);
+          };
+          imgElement.onerror = function() {
+            var errorText = document.createTextNode('Gambar tidak dapat dimuat');
+            imagePreview.appendChild(errorText);
+          };
+        }
+      </script>
 </body>
 
 </html>

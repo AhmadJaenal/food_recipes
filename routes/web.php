@@ -36,6 +36,8 @@ Route::post('/removeFavorite{id_favorite}',[FavoriteController::class, 'removeFa
 
 
 Route::get('ingredientSubst{ingredients}', [RecipesController::class, 'IngredientSubstitutes'])->name('ingredientSubst');
+Route::get('imageAnalysis', [RecipesController::class, 'imageAnalysis'])->name('imageAnalysis');
+
 
 // Testing
 Route::get('Testing', [Controller::class, 'Testing'])->name('Testing');

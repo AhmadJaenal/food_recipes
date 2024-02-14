@@ -116,4 +116,27 @@ class RecipesController extends Controller
         }
     }
 
+    public function imageAnalysis(Request $request)
+    {   
+        $data = $request->all();
+        if (!empty($data)) {
+            $apiKey = env('API_KEY');
+            $response = Http::get("https://api.spoonacular.com/food/images/analyze",  [
+                'apiKey' => $apiKey,
+                'imageUrl' => $request->image_url,
+            ]);
+            $url = $request->image_url;
+            if ($response->status() == 200) {
+                $analysis = $response->json();
+                // dd($Analysis);
+                return view('landingpage.image_analysis', compact('analysis','url'));
+            } else {
+                dd($response->status());
+            }
+        } else{
+            return view('landingpage.image_analysis');
+        }
+
+    }
+
 }
