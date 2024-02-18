@@ -1,0 +1,17 @@
+Kelompok 4:
+- 10121167 - Ahmad Jaenal Aripin
+- 10121196 - Adinda Regita A C
+- 10121204 - Stefan Setiadi D P
+
+Informasi menjalankan project:
+- git clone https://github.com/AhmadJaenal/food_recipes.git
+- composer install
+- cp .env.example .env
+- php artisan migrate
+- php artisan key:generate
+- API_KEY= ee7efc4fc84a4167817b39ca7168670f
+           8211ce313a68495d834536c58273bbc1
+           cf8202402b44402fbb3dede6cae138d8
+  Pilih salah satu API_KEY untuk dimasukkan ke API_KEY(.env)
+- Aktifkan extension=gd, dengan cara menghapus ; pada php.ini
+(https://www.geeksforgeeks.org/how-to-install-php-gd-in-windows/)

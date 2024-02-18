@@ -12,6 +12,16 @@ use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RestaurantsController;
 
+/*
+|--------------------------------------------------------------------------
+| Kelompok 4 (IF-5)
+|--------------------------------------------------------------------------
+|
+| 10121167 - Ahmad Jaenal Aripin
+| 10121196 - Adinda Regita A C
+| 10121204 - Stefan Setiadi D P
+|
+*/
 
 Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
