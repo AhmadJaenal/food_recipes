@@ -7,6 +7,7 @@ Informasi menjalankan project:
 - git clone https://github.com/AhmadJaenal/food_recipes.git
 - composer install
 - cp .env.example .env
+- php artisan migrate
 - php artisan key:generate
 - API_KEY= ee7efc4fc84a4167817b39ca7168670f
            8211ce313a68495d834536c58273bbc1
