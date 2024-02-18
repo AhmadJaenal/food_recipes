@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -32,7 +33,7 @@ Route::get('/search-restaurants', [SearchController::class, 'searchRestaurants']
 
 Route::get('favorites', [FavoriteController::class, 'favorites'])->name('favorites')->middleware('auth');
 Route::post('addFavorite', [FavoriteController::class, 'addFavorite'])->name('addFavorite');
-Route::post('/removeFavorite{id_favorite}',[FavoriteController::class, 'removeFavorite'])->name('removeFavorite')->middleware('auth');
+Route::post('/removeFavorite{id_favorite}', [FavoriteController::class, 'removeFavorite'])->name('removeFavorite')->middleware('auth');
 
 
 Route::get('ingredientSubst{ingredients}', [RecipesController::class, 'IngredientSubstitutes'])->name('ingredientSubst');
@@ -41,3 +42,7 @@ Route::get('imageAnalysis', [RecipesController::class, 'imageAnalysis'])->name('
 
 // Testing
 Route::get('Testing', [Controller::class, 'Testing'])->name('Testing');
+
+
+Route::get('/blog', [BlogController::class, 'index'])->name('index')->middleware('auth');
+Route::post('/post/{id}', [BlogController::class, 'postBlog'])->name('postBlog')->middleware('auth');
