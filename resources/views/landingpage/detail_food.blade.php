@@ -229,7 +229,12 @@
                     <ul class="list-group">
                         <li class="list-group-item disabled">Ingredients</li>
                         @foreach ($ingredients['ingredients'] as $index => $item)
-                            <li class="list-group-item">{{ $index+1 }}. {{ $item['name'] }} <a href="{{ route('ingredientSubst', ['ingredients' => $item['name']]) }}">Substitute</a></li>
+                            <li class="list-group-item">{{ $index+1 }}. {{ $item['name'] }}
+                            @if(in_array($index+1, $index_substitutes))
+
+                            <a href="{{ route('ingredientSubst', ['ingredients' => $item['name']]) }}">Substitute</a>
+                            @endif
+                            </li>
                         @endforeach
                     </ul>
                 </div>
