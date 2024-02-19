@@ -126,15 +126,21 @@ class RecipesController extends Controller
                 'apiKey' => $apiKey,
                 'imageUrl' => $request->image_url,
             ]);
+            $response1 = Http::get("https://api.spoonacular.com/recipes/complexSearch", [
+                'apiKey' => $apiKey,
+                'query' => $response->json()['category']['name']
+            ]);
+
             $url = $request->image_url;
-            if ($response->status() == 200) {
+            if (($response->status() == 200) && ($response1->status() == 200)) {
                 $analysis = $response->json();
+                $resultRecipes = $response1->json()['results'];
                 // dd($Analysis);
-                return view('landingpage.image_analysis', compact('analysis', 'url'));
+                return view('landingpage.image_analysis', compact('analysis','url','resultRecipes'));
             } else {
                 dd($response->status());
             }
-        } else {
+        } else{
             return view('landingpage.image_analysis');
         }
     }

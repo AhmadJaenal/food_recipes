@@ -54,7 +54,7 @@
             <div class="m-5">
             </div>
         </div>
-        <div class="m-3">
+        <div class="m-5">
         </div>
         <!-- end slider section -->
     </div>
@@ -91,9 +91,9 @@
 
             @if(isset($analysis))
                 <div class="row justify-content-center">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div id="image-preview">
-                            <img src="{{$url}}" alt="">
+                            <img src="{{$url}}" alt="" style="max-width:300px; max-height:300px; width:auto; height:auto;">
                         </div>
                     </div>
                 </div>
@@ -105,26 +105,40 @@
                 </div>
             @else
                 <div class="row justify-content-center">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <div id="image-preview"></div>
                     </div>
                 </div>
 
             @endif
 
-            <div class="row justify-content-center">
-                <div class="col-md-4">
-                    {{-- <ul class="list-group">
-                        <li class="list-group-item disabled">Ingredients</li>
-                        @foreach ($ingredients['ingredients'] as $index => $item)
-                            <li class="list-group-item">{{ $index+1 }}. {{ $item['name'] }} <a href="{{ route('ingredientSubst', ['ingredients' => $item['name']]) }}">Substitute</a></li>
-                        @endforeach
-                    </ul> --}}
+            @if(isset($resultRecipes))
+                <div class="row">
+                    @foreach ($resultRecipes as $recipe)
+                        <div class="col-md-4">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="{{ $recipe['image'] }}" class="box-img" alt=""
+                                        style="width: 150px; height:150px; border-radius:100%; object-fit: cover;  border: 8px solid black;">
+                                </div>
+                                <div class="detail-box">
+                                    <div style="height: 100px;">
+                                        <h4
+                                            style="max-height: 58px; overflow: hidden;
+                                        text-overflow: ellipsis;">
+                                            {{ $recipe['title'] }}
+                                        </h4>
+                                    </div>
+
+                                    <a href="{{ route('detailRecipe', ['id' => $recipe['id']]) }}">
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
-            </div>
-
-
-
+            @endif
             </div>
 
         </div>
@@ -154,23 +168,44 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
-    <script>
+      <script>
         function previewImage() {
-          var imageUrl = document.getElementById('image_url').value;
-          var imagePreview = document.getElementById('image-preview');
-          imagePreview.innerHTML = '';
-
-          var imgElement = document.createElement('img');
-          imgElement.src = imageUrl;
-          imgElement.onload = function() {
-            imagePreview.appendChild(imgElement);
-          };
-          imgElement.onerror = function() {
-            var errorText = document.createTextNode('Gambar tidak dapat dimuat');
-            imagePreview.appendChild(errorText);
-          };
+            var imageUrl = document.getElementById('image_url').value;
+            var imagePreview = document.getElementById('image-preview');
+            imagePreview.innerHTML = '';
+    
+            var imgElement = document.createElement('img');
+            imgElement.onload = function() {
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                var maxSize = 300;
+                var ratio = 1;
+    
+                if (imgElement.width > maxSize || imgElement.height > maxSize) {
+                    if (imgElement.width > imgElement.height) {
+                        ratio = maxSize / imgElement.width;
+                    } else {
+                        ratio = maxSize / imgElement.height;
+                    }
+                }
+    
+                canvas.width = imgElement.width * ratio;
+                canvas.height = imgElement.height * ratio;
+                ctx.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+                imagePreview.appendChild(canvas);
+            };
+    
+            imgElement.onerror = function() {
+                var errorText = document.createTextNode('Gambar tidak dapat dimuat');
+                imagePreview.appendChild(errorText);
+            };
+    
+            imgElement.src = imageUrl;
         }
-      </script>
+    </script>
+    
+
+
 </body>
 
 </html>

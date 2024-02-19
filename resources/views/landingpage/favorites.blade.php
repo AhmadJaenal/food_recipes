@@ -55,7 +55,7 @@
             <div class="m-5">
             </div>
         </div>
-        <div class="m-3">
+        <div class="m-5">
         </div>
         <!-- end slider section -->
     </div>
