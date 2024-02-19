@@ -10,9 +10,10 @@ use Illuminate\Support\Facades\Session;
 
 class BlogController extends Controller
 {
-    public function createBlog()
+    public function createBlog($id)
     {
-        return view('landingpage.blogPage.create_blog');
+        $blogs = Blog::where('id_user', $id)->get();
+        return view('landingpage.blogPage.create_blog', compact('blogs'));
     }
 
     public function postBlog(Request $request, $id)
@@ -30,10 +31,10 @@ class BlogController extends Controller
                     'content' => $request->content,
                     'hastag' => $request->hastag,
                 ]);
-                Session::flash('message', 'Success');
+                Session::flash('success', 'Your Blog Published Successfully!');
             }
         } catch (\Throwable $th) {
-            Session::flash('error', 'Failed');
+            Session::flash('error', 'Your Blog Published Failed!');
         }
 
         return redirect()->back();
@@ -50,5 +51,22 @@ class BlogController extends Controller
         $detailBlogs = Blog::where('id', $id)->get();
         $blogs = Blog::orderBy('created_at', 'desc')->take(5)->get();
         return view('landingpage.blogPage.detail_blog', compact('detailBlogs', 'blogs'));
+    }
+
+    public function deleteBlog($id)
+    {
+        try {
+            $blog = Blog::findOrFail($id);
+            $blog->delete();
+            return redirect()->back()->with('success', 'Blog has been deleted successfully');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('error', 'There is an error');
+        }
+    }
+
+    public function editBlog($id)
+    {
+        $dataBlog = Blog::where('id', $id)->get();
+        return view('landingpage.blogPage.create_blog', compact('dataBlog'));
     }
 }

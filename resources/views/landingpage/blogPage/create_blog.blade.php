@@ -11,7 +11,8 @@
     <meta name="keywords" content="" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet"
+        href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css') }}">
 
 
     <title>Search</title>
@@ -19,28 +20,31 @@
 
     <!-- bootstrap core css -->
     {{-- <link rel="stylesheet" type="text/css" href="css/bootstrap.css" /> --}}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    <link href="{{ asset('https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css') }}" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <!-- fonts style -->
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap" rel="stylesheet">
+    <link href="{{ asset('https://fonts.googleapis.com/css?family=Poppins:400,600,700&display=swap') }}"
+        rel="stylesheet">
 
     <!-- font awesome style -->
-    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet" />
     <!-- nice select -->
     <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css"
+        href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css') }}"
         integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
     <!-- slidck slider -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+    <link rel="stylesheet"
+        href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css') }}"
         integrity="sha256-UK1EiopXIL+KVhfbFa8xrmAWPeBjMVdvYMYkTAEv/HI=" crossorigin="anonymous" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css.map"
+    <link rel="stylesheet"
+        href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css.map') }}"
         integrity="undefined" crossorigin="anonymous" />
 
 
     <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" />
     <!-- responsive style -->
-    <link href="css/responsive.css" rel="stylesheet" />
+    <link href="{{ asset('css/responsive.css') }}" rel="stylesheet" />
 
 </head>
 <style>
@@ -201,25 +205,44 @@
         border: 0;
         transition: all .2s ease;
     }
+
+    .btn-circle.btn-xl {
+        width: 70px;
+        height: 70px;
+        padding: 10px 16px;
+        border-radius: 35px;
+        font-size: 24px;
+        line-height: 1.33;
+    }
+
+    .btn-circle {
+        width: 30px;
+        height: 30px;
+        padding: 6px 0px;
+        border-radius: 15px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.42857;
+    }
 </style>
 
 <body>
 
     <form action="{{ route('postBlog', ['id' => Auth()->user()->id]) }}" method="post" enctype="multipart/form-data">
         @csrf
-        <div>
+        <div style="margin: 0">
 
             <div class="hero_area">
 
                 <!-- slider section -->
-                @if (session('message'))
+                @if (session('success'))
                     <div class="alert alert-success m-2">
-                        <b>Your Blog Published Successfully!</b> {{ session('message') }}
+                        <b>Success!</b> {{ session('success') }}
                     </div>
                 @endif
                 @if (session('error'))
                     <div class="alert alert-danger m-2">
-                        <b>Your Blog Published Failed!</b> {{ session('error') }}
+                        <b>Error!</b> {{ session('error') }}
                     </div>
                 @endif
 
@@ -228,10 +251,8 @@
                         <div class="row">
                             <div class="col-lg-10 mx-auto">
                                 <div class="detail-box">
-                                    <h1>
-                                        <textarea id="postTitle" class="transparent-input" name="postTitle" rows="3" cols="20"
-                                            placeholder="please enter the title of your blog post" style="line-height: .7"></textarea>
-                                    </h1>
+                                    <textarea id="postTitle" class="transparent-input" name="postTitle" rows="3" cols="20"
+                                        placeholder="please enter the title of your blog post" style="line-height: .7" value="{{ $dataBlog[0]['title'] }}"></textarea>
                                     <p>
                                         <textarea id="tagLine" class="transparent-input" name="tagLine" rows="2" cols="60"
                                             placeholder="You can add a short tagline or excerpt from this blog post"></textarea>
@@ -271,7 +292,7 @@
                     </div>
                 </div>
             </section>
-            <section class="slider_section">
+            <section class="slider_section" style="padding-bottom: 40px">
                 <div class="container">
                     <div class="col-lg-10 mx-auto">
                         <div class="detail-box">
@@ -294,46 +315,118 @@
 
     </form>
 
+    <!-- blog section -->
+    <section class="recipe_section">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Your Blog
+                </h2>
+            </div>
+            <div class="row">
+                @foreach ($blogs as $blog)
+                    <div class="col-sm-6 col-md-4 mx-auto">
+                        <a href="{{ route('detailBlog', ['id' => $blog->id]) }}" style="color: black">
+                            <div class="box mb-3">
+                                <div class="">
+                                    <img src="{{ asset('blogs/' . $blog->image) }}" class="box-img rounded"
+                                        alt="" style="object-fit: cover; max-width: 100%; max-height: 200px;">
+                                </div>
+                                <div class="detail-box">
+                                    <div style="max-height: 1.2em; overflow: hidden; text-overflow: ellipsis;">
+                                        <h6>{{ $blog->tagline }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="col">
+                            <div class="d-flex align-items-center">
+                                <button type="button" class="btn btn-primary me-2">Update</button>
+                                <div class="dropdown">
+                                    <button class="btn btn-secondary dropdown-toggle" type="button"
+                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                        aria-expanded="false">
+                                        Published
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="#">Action</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                        <a class="dropdown-item" href="#">Something else here</a>
+                                    </div>
+                                </div>
+
+                                <button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="modal"
+                                    data-target="#confirmModal" style="margin-left: 5px"><i class="fa fa-times"
+                                        style="color: white"></i>
+                                </button>
+
+                                <button type="button" class="btn btn-warning btn-circle btn-lg"
+                                    style="margin-left: 5px"><i class="fa fa-edit" style="color: white"></i>
+                                </button>
+
+                                <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
+                                    aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Are you sure you want to delete this blog?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Close</button>
+                                                <form action="{{ route('deleteBlog', ['id' => $blog->id]) }}"
+                                                    method="get">
+                                                    @csrf
+                                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <section class="recipe_section layout_padding-top">
+
+    </section>
+
+    <!-- end blog section -->
+
     @include('partials.footer')
 
     <!-- jQery -->
-    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
     <!-- bootstrap js -->
-    <script src="js/bootstrap.js"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script>
     <!-- slick  slider -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js"></script>
+    <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.js') }}"></script>
     <!-- nice select -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"
+    <script
+        src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js') }}"
         integrity="sha256-Zr3vByTlMGQhvMfgkQ5BtWRSKBGa2QlspKYJnkjZTmo=" crossorigin="anonymous"></script>
     <!-- custom js -->
-    <script src="js/custom.js"></script>
+    <script src="{{ asset('js/custom.js') }}"></script>
 
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+    <script type="module" src="{{ asset('https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js') }}"></script>
+    <script nomodule src="{{ asset('https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js') }}"></script>
+    <script src="{{ asset('https://code.jquery.com/jquery-3.6.0.min.js') }}"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5+M5O3y0t/HzJF8/XnEhFQ5EJq1CKD61z6XvCaih" crossorigin="anonymous">
+    </script>
+    <script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js') }}"></script>
 
 </body>
-
-{{-- <script>
-    window.onload = function() {
-        // Mendapatkan tanggal saat ini
-        var currentDate = new Date();
-
-        // Mendapatkan elemen di HTML tempat Anda ingin menampilkan tanggal
-        var dateElement = document.getElementById('currentDate');
-
-        // Format tanggal ke dalam format yang diinginkan
-        var formattedDate = currentDate.toLocaleDateString('en-US', {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        });
-
-        // Menampilkan tanggal dalam elemen HTML
-        dateElement.innerHTML = 'Posted ' + formattedDate + ' by Jeje';
-    };
-</script> --}}
 
 <script>
     function readURL(input) {

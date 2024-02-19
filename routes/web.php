@@ -54,7 +54,8 @@ Route::get('imageAnalysis', [RecipesController::class, 'imageAnalysis'])->name('
 Route::get('Testing', [Controller::class, 'Testing'])->name('Testing');
 
 
-Route::get('/blog', [BlogController::class, 'createBlog'])->name('createBlog')->middleware('auth');
+Route::get('/create-blog/{id}', [BlogController::class, 'createBlog'])->name('createBlog')->middleware('auth');
 Route::post('/post/{id}', [BlogController::class, 'postBlog'])->name('postBlog')->middleware('auth');
 Route::get('/page-blog', [BlogController::class, 'pageBlog'])->name('pageBlog')->middleware('auth');
 Route::get('/detail-blog/{id}', [BlogController::class, 'detailBlog'])->name('detailBlog')->middleware('auth');
+Route::get('/delete-blog/{id}', [BlogController::class, 'deleteBlog'])->name('deleteBlog')->middleware('auth');
