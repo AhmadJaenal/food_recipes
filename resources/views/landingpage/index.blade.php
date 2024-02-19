@@ -264,6 +264,40 @@
 
     <!-- end recipe section -->
 
+    <!-- blog section -->
+
+    <section class="recipe_section layout_padding-top">
+        <div class="container">
+            <div class="heading_container heading_center">
+                <h2>
+                    Our Best Blog
+                </h2>
+            </div>
+            <div class="row">
+                @foreach ($blogs as $blog)
+                    <div class="col-sm-6 col-md-4 mx-auto">
+                        <div class="box">
+                            <div class="img-box">
+                                <img src="blogs/{{ $blog->image }}" class="box-img" alt=""
+                                    style="object-fit: cover; max-width: 100%; height: 400px;">
+                            </div>
+                            <div class="detail-box">
+                                <h4>
+                                    {{ $blog->title }}
+                                </h4>
+                                <a href="{{ route('detailBlog', ['id' => $blog->id]) }}">
+                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    <!-- end blog section -->
+
     <!-- app section -->
 
     <section class="app_section">

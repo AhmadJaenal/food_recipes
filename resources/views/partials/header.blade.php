@@ -31,7 +31,7 @@
                         <span>Image Analysis</span>
                     </a>
 
-                    <a class="btn" type="submit" href="{{ route('index') }}">
+                    <a class="btn" type="submit" href="{{ route('createBlog') }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
                             class="bi bi-card-checklist" viewBox="0 0 16 16">
                             <path
@@ -71,12 +71,6 @@
                             <span>Login</span>
                         </a>
                     @endif
-                    {{-- <form class="form-inline ">
-                                <input type="search" placeholder="Search" />
-                                <button class="btn  nav_search-btn" type="submit">
-                                    <i class="fa fa-search" aria-hidden="true"></i>
-                                </button>
-                            </form> --}}
                 </div>
                 <div class="custom_menu-btn">
                     <button onclick="openNav()">

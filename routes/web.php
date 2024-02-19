@@ -26,7 +26,7 @@ use App\Http\Controllers\RestaurantsController;
 Route::get('login', [LoginController::class, 'login'])->name('login');
 Route::post('actionlogin', [LoginController::class, 'actionlogin'])->name('actionlogin');
 
-Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
+// Route::get('home', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::get('actionlogout', [LoginController::class, 'actionlogout'])->name('actionlogout')->middleware('auth');
 
 Route::get('register', [RegisterController::class, 'register'])->name('register');
@@ -54,5 +54,7 @@ Route::get('imageAnalysis', [RecipesController::class, 'imageAnalysis'])->name('
 Route::get('Testing', [Controller::class, 'Testing'])->name('Testing');
 
 
-Route::get('/blog', [BlogController::class, 'index'])->name('index')->middleware('auth');
+Route::get('/blog', [BlogController::class, 'createBlog'])->name('createBlog')->middleware('auth');
 Route::post('/post/{id}', [BlogController::class, 'postBlog'])->name('postBlog')->middleware('auth');
+Route::get('/page-blog', [BlogController::class, 'pageBlog'])->name('pageBlog')->middleware('auth');
+Route::get('/detail-blog/{id}', [BlogController::class, 'detailBlog'])->name('detailBlog')->middleware('auth');

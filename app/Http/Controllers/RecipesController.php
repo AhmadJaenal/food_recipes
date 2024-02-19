@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use App\Models\Favorite;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +21,9 @@ class RecipesController extends Controller
         ]);
         if ($response->status() == 200) {
             $recipes = $response->json()['searchResults'][0]['results'];
-            return view('landingpage.index', compact('recipes'));
+            $blogs = Blog::orderBy('created_at', 'desc')->take(3)->get();
+
+            return view('landingpage.index', compact('recipes', 'blogs'));
         } else {
             dd($response->status());
         }
@@ -28,7 +31,7 @@ class RecipesController extends Controller
     }
 
     public function detailRecipe($id)
-    {   
+    {
         $apiKey = env('API_KEY');
         $response = Http::get("https://api.spoonacular.com/recipes/{$id}/information",  [
             'apiKey' => $apiKey,
@@ -49,22 +52,20 @@ class RecipesController extends Controller
             $ingredients = $response1->json();
             $tasteWidget = $response2;
             $summary = $response3->json();
-            if(Auth::check()) {
+            if (Auth::check()) {
                 $favorite = Favorite::where('id_user', Auth::user()->id)->where('id_recipe', $id)->first();
-                if($favorite){
+                if ($favorite) {
                     $id_favorite = $favorite->id;
-                }
-                else {
+                } else {
                     $id_favorite = null;
                 }
-            }
-            else {
+            } else {
                 $id_favorite = null;
             }
             // $nutritionLabel = $response3;
             // dd($ingredients);
             // dd($detailRecipe);
-            return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget','summary','id_favorite'));
+            return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget', 'summary', 'id_favorite'));
         } else {
             dd($response->status());
         }
@@ -101,7 +102,7 @@ class RecipesController extends Controller
 
 
     public function IngredientSubstitutes($ingredients)
-    {   
+    {
         $apiKey = env('API_KEY');
         $response = Http::get("https://api.spoonacular.com/food/ingredients/substitutes",  [
             'apiKey' => $apiKey,
@@ -117,7 +118,7 @@ class RecipesController extends Controller
     }
 
     public function imageAnalysis(Request $request)
-    {   
+    {
         $data = $request->all();
         if (!empty($data)) {
             $apiKey = env('API_KEY');
@@ -129,14 +130,12 @@ class RecipesController extends Controller
             if ($response->status() == 200) {
                 $analysis = $response->json();
                 // dd($Analysis);
-                return view('landingpage.image_analysis', compact('analysis','url'));
+                return view('landingpage.image_analysis', compact('analysis', 'url'));
             } else {
                 dd($response->status());
             }
-        } else{
+        } else {
             return view('landingpage.image_analysis');
         }
-
     }
-
 }
