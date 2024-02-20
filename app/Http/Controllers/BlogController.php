@@ -10,16 +10,17 @@ use Illuminate\Support\Facades\Session;
 
 class BlogController extends Controller
 {
-    public function createBlog($id)
+    public function createBlog()
     {
+        $id = Auth()->user()->id;
         $blogs = Blog::where('id_user', $id)->get();
         return view('landingpage.blogPage.create_blog', compact('blogs'));
     }
 
-    public function postBlog(Request $request, $id)
+    public function postBlog(Request $request, $id, $action)
     {
         try {
-            if ($request->hasFile('image_url')) {
+            if ($request->hasFile('image_url') && $action == 'add') {
                 $file = $request->file('image_url');
                 $file->move('blogs/', $file->getClientOriginalName());
                 $filename = $file->getClientOriginalName();
@@ -32,12 +33,34 @@ class BlogController extends Controller
                     'hastag' => $request->hastag,
                 ]);
                 Session::flash('success', 'Your Blog Published Successfully!');
+            } else {
+                $blog = Blog::where('id', $request->idBlog)->first();
+                $filename = null;
+                if ($request->hasFile('image_url')) {
+                    $file = $request->file('image_url');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->move(public_path('blogs'), $filename);
+                }
+
+                $blog->id_user = Auth()->user()->id;
+                $blog->title = $request->postTitle;
+
+                if ($filename) {
+                    $blog->image = $filename;
+                }
+                $blog->tagline = $request->tagLine;
+                $blog->content = $request->content;
+                $blog->hastag = $request->hastag;
+
+                $blog->save();
+                Session::flash('success', 'Edit Blog Successfully!');
             }
+            return redirect()->back();
         } catch (\Throwable $th) {
-            Session::flash('error', 'Your Blog Published Failed!');
+            Session::flash('error', $th->getMessage());
         }
 
-        return redirect()->back();
+        // return redirect()->back();
     }
 
     public function pageBlog()
@@ -64,9 +87,9 @@ class BlogController extends Controller
         }
     }
 
-    public function editBlog($id)
+    public function getBlogData($id)
     {
-        $dataBlog = Blog::where('id', $id)->get();
-        return view('landingpage.blogPage.create_blog', compact('dataBlog'));
+        $blog = Blog::find($id);
+        return response()->json($blog);
     }
 }

@@ -228,7 +228,8 @@
 
 <body>
 
-    <form action="{{ route('postBlog', ['id' => Auth()->user()->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('postBlog', ['id' => Auth()->user()->id, 'action' => 'add']) }}" id="formBlog"
+        method="post" enctype="multipart/form-data">
         @csrf
         <div style="margin: 0">
 
@@ -251,8 +252,12 @@
                         <div class="row">
                             <div class="col-lg-10 mx-auto">
                                 <div class="detail-box">
-                                    <textarea id="postTitle" class="transparent-input" name="postTitle" rows="3" cols="20"
-                                        placeholder="please enter the title of your blog post" style="line-height: .7" value="{{ $dataBlog[0]['title'] }}"></textarea>
+                                    <input type="text" value="" name="idBlog" id="idBlog" readonly
+                                        style="display: none">
+                                    <h1>
+                                        <textarea id="postTitle" class="transparent-input" name="postTitle" rows="3" cols="20"
+                                            placeholder="please enter the title of your blog post" style="line-height: .9"></textarea>
+                                    </h1>
                                     <p>
                                         <textarea id="tagLine" class="transparent-input" name="tagLine" rows="2" cols="60"
                                             placeholder="You can add a short tagline or excerpt from this blog post"></textarea>
@@ -306,7 +311,7 @@
                                 placeholder="Hastag">
                         </div>
                         <div class="d-grid gap-2 col-2 mx-auto mt-2">
-                            <button type="submit" class="btn btn-primary"> Post</button>
+                            <button type="submit" class="btn btn-primary" id="submitButton"> Post</button>
                         </div>
                     </div>
                 </div>
@@ -360,8 +365,10 @@
                                         style="color: white"></i>
                                 </button>
 
-                                <button type="button" class="btn btn-warning btn-circle btn-lg"
-                                    style="margin-left: 5px"><i class="fa fa-edit" style="color: white"></i>
+                                <button type="button"
+                                    class="btn btn-warning btn-circle btn-lg edit-button updateButton"
+                                    id="updateButton" data-id="{{ $blog->id }}" style="margin-left: 5px"><i
+                                        class="fa fa-edit" style="color: white"></i>
                                 </button>
 
                                 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
@@ -427,6 +434,54 @@
     <script src="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js') }}"></script>
 
 </body>
+
+<script>
+    document.querySelectorAll('.edit-button').forEach(item => {
+        item.addEventListener('click', event => {
+            const blogId = item.getAttribute('data-id');
+            fetch(`/getBlogData/${blogId}`)
+                .then(response => response.json())
+                .then(data => {
+
+                    document.getElementById('idBlog').value = data.id;
+                    document.getElementById('postTitle').value = data.title;
+                    document.getElementById('tagLine').value = data.tagline;
+                    document.getElementById('content').value = data.content;
+                    document.getElementById('hastag').value = data.hastag;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
+
+<script>
+    const updateButton = document.getElementById('updateButton');
+    const submitButton = document.getElementById('submitButton');
+
+    updateButton.addEventListener('click', () => {
+        const blogId = updateButton.getAttribute('data-id');
+        const form = document.getElementById('formBlog');
+        form.action = `{{ route('postBlog', ['id' => Auth()->user()->id, 'action' => 'update']) }}`;
+    });
+
+    updateButton.addEventListener('click', () => {
+        submitButton.textContent = 'Save Changes';
+    });
+</script>
+
+
+{{-- <script>
+    document.querySelectorAll('.edit-button').forEach(item => {
+        item.addEventListener('click', event => {
+            // Dapatkan elemen form
+            const form = item.closest('form');
+            // Ubah nilai atribut action menjadi 'update'
+            form.setAttribute('action',
+                "{{ route('postBlog', ['id' => Auth()->user()->id, 'action' => 'update']) }}");
+        });
+    });
+</script> --}}
+
 
 <script>
     function readURL(input) {

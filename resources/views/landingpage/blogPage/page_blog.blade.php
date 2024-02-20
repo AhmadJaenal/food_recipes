@@ -48,7 +48,7 @@
         <header class="header_section">
             <div class="container-fluid">
                 <nav class="navbar navbar-expand-lg custom_nav-container">
-                    <a class="navbar-brand center" href="index.html">
+                    <a class="navbar-brand center" href="{{ route('featchRecipes') }}">
                         <span>
                             Delfood Blog
                         </span>
@@ -100,27 +100,25 @@
 
     <!-- news section -->
 
-    <section class="news_section layout_padding">
+    <section class="recipe_section layout_padding-top">
         <div class="container">
             <div class="heading_container heading_center">
                 <h2>
-                    Latest Blog
+                    Blog
                 </h2>
             </div>
             <div class="row">
                 @foreach ($blogs as $blog)
-                    <div class="col-md-3">
+                    <div class="col-sm-6 col-md-3 mx-auto">
                         <div class="box">
                             <div class="img-box">
-                                <img src="blogs/{{ $blog->image }}" class="box-img" alt="" height="400px">
+                                <img src="blogs/{{ $blog->image }}" class="box-img" alt=""
+                                    style="object-fit: cover; max-width: 100%; height: 300px;">
                             </div>
                             <div class="detail-box">
-                                <h4>
+                                <h4 style="max-height: 1.2em; overflow: hidden; text-overflow: ellipsis;">
                                     {{ $blog->title }}
                                 </h4>
-                                <p>
-                                    {{ $blog->tagline }}
-                                </p>
                                 <a href="{{ route('detailBlog', ['id' => $blog->id]) }}">
                                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                                 </a>
@@ -133,7 +131,6 @@
     </section>
 
     <!-- end news section -->
-
 
     <div class="footer_container">
         <!-- info section -->
