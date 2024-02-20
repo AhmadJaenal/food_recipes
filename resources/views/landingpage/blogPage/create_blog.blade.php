@@ -397,7 +397,8 @@
                                 <form action="{{ route('publishBlog') }}" method="get"
                                     id="publishForm{{ $blog->id }}">
                                     @csrf
-                                    <input type="text" value="{{ $blog->id }}" name="idBlogPublish">
+                                    <input type="text" value="{{ $blog->id }}" name="idBlogPublish"
+                                        style="display: none">
 
                                     <button type="button"
                                         class="btn {{ $blog->status ? 'btn-warning' : 'btn-primary' }} me-2"
