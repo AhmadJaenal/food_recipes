@@ -46,6 +46,18 @@ class RecipesController extends Controller
             'apiKey' => $apiKey,
         ]);
 
+        $index_substitutes = [];
+        $i = 0;
+        while ($i < count($response1->json()['ingredients'])) {
+            $substitutes = Http::get("https://api.spoonacular.com/food/ingredients/substitutes",  [
+                'apiKey' => $apiKey,
+                'ingredientName' => $response1->json()['ingredients'][$i]['name'],
+            ]);
+            $i++;
+            if ($substitutes->json()['status'] == 'success'){
+                $index_substitutes[] = $i;
+            }
+        }
 
         if ($response->status() == 200 and $response1->status() == 200 and $response2->status() == 200 and $response3->status() == 200) {
             $detailRecipe = $response->json();
@@ -65,7 +77,7 @@ class RecipesController extends Controller
             // $nutritionLabel = $response3;
             // dd($ingredients);
             // dd($detailRecipe);
-            return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget', 'summary', 'id_favorite'));
+            return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget', 'summary', 'id_favorite', 'index_substitutes'));
         } else {
             dd($response->status());
         }
@@ -126,15 +138,21 @@ class RecipesController extends Controller
                 'apiKey' => $apiKey,
                 'imageUrl' => $request->image_url,
             ]);
+            $response1 = Http::get("https://api.spoonacular.com/recipes/complexSearch", [
+                'apiKey' => $apiKey,
+                'query' => $response->json()['category']['name']
+            ]);
+
             $url = $request->image_url;
-            if ($response->status() == 200) {
+            if (($response->status() == 200) && ($response1->status() == 200)) {
                 $analysis = $response->json();
+                $resultRecipes = $response1->json()['results'];
                 // dd($Analysis);
-                return view('landingpage.image_analysis', compact('analysis', 'url'));
+                return view('landingpage.image_analysis', compact('analysis','url','resultRecipes'));
             } else {
                 dd($response->status());
             }
-        } else {
+        } else{
             return view('landingpage.image_analysis');
         }
     }
