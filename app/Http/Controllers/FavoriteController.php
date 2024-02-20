@@ -10,7 +10,6 @@ class FavoriteController extends Controller
 {
     public function favorites()
     {
-        // $favorites = Favorite::all();
         $favorites = Favorite::where('id_user', Auth::user()->id)->get();
         return view('landingpage.favorites', compact('favorites'));
     }

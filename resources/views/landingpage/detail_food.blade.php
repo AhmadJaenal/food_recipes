@@ -250,14 +250,6 @@
                         <li class="list-group-item disabled">Preparation</li>
                         @foreach ($detailRecipe['analyzedInstructions'][0]['steps'] as $recipe)
                             <li class="list-group-item">{{ $recipe['number'] }} {{ $recipe['step'] }}</li>
-                            {{-- 
-                            @foreach ($recipe['ingredients'] as $ingredients)
-                                <p>{{ $ingredients['name'] }}</p>
-                            @endforeach
-
-                            @foreach ($recipe['equipment'] as $equipment)
-                                <p>{{ $equipment['name'] }}</p>
-                            @endforeach --}}
                         @endforeach
 
                     </ul>
@@ -277,6 +269,71 @@
 
     <!-- jQery -->
     <script src="js/jquery-3.4.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.favorite-add-btn').click(function(e) {
+                e.preventDefault();
+                var id_user = $(this).data('id-user');
+                var id_recipe = $(this).data('id-recipe');
+                var title = $(this).data('title');
+                var image = $(this).data('image');
+    
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("addFavorite") }}',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        id_user: id_user,
+                        id_recipe: id_recipe,
+                        title: title,
+                        image: image
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#favorite-btn').hide();
+                            $('#remove-favorite-btn').show();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+    
+            $('.favorite-remove-btn').click(function(e) {
+                e.preventDefault();
+                var id_user = $(this).data('id-user');
+                var id_recipe = $(this).data('id-recipe');
+                var title = $(this).data('title');
+                var image = $(this).data('image');
+    
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ route("removeFavorite") }}',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        id_user: id_user,
+                        id_recipe: id_recipe,
+                        title: title,
+                        image: image
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            $('#favorite-btn').show();
+                            $('#remove-favorite-btn').hide();
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
     <!-- bootstrap js -->
     <script src="js/bootstrap.js"></script>
     <!-- slick  slider -->
@@ -293,70 +350,3 @@
 </body>
 
 </html>
-
-
-<script>
-    $(document).ready(function() {
-        $('.favorite-add-btn').click(function(e) {
-            e.preventDefault();
-            var id_user = $(this).data('id-user');
-            var id_recipe = $(this).data('id-recipe');
-            var title = $(this).data('title');
-            var image = $(this).data('image');
-
-            $.ajax({
-                type: 'POST',
-                url: '{{ route("addFavorite") }}',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id_user: id_user,
-                    id_recipe: id_recipe,
-                    title: title,
-                    image: image
-                },
-                success: function(response) {
-                    if (response.success) {
-                        $('#favorite-btn').hide();
-                        $('#remove-favorite-btn').show();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-
-        $('.favorite-remove-btn').click(function(e) {
-            e.preventDefault();
-            var id_user = $(this).data('id-user');
-            var id_recipe = $(this).data('id-recipe');
-            var title = $(this).data('title');
-            var image = $(this).data('image');
-
-            $.ajax({
-                type: 'POST',
-                url: '{{ route("removeFavorite") }}',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                data: {
-                    id_user: id_user,
-                    id_recipe: id_recipe,
-                    title: title,
-                    image: image
-                },
-                success: function(response) {
-                    if (response.success) {
-                        $('#favorite-btn').show();
-                        $('#remove-favorite-btn').hide();
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error(xhr.responseText);
-                }
-            });
-        });
-    });
-</script>

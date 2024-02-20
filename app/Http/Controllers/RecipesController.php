@@ -74,9 +74,6 @@ class RecipesController extends Controller
             } else {
                 $id_favorite = null;
             }
-            // $nutritionLabel = $response3;
-            // dd($ingredients);
-            // dd($detailRecipe);
             return view('landingpage.detail_food', compact('detailRecipe', 'ingredients', 'tasteWidget', 'summary', 'id_favorite', 'index_substitutes'));
         } else {
             dd($response->status());
@@ -122,7 +119,6 @@ class RecipesController extends Controller
         ]);
         if ($response->status() == 200) {
             $substitutes = $response->json();
-            // dd($substitutes);
             return view('landingpage.ingredient_substitutes', compact('substitutes', 'ingredients'));
         } else {
             dd($response->status());
@@ -147,7 +143,6 @@ class RecipesController extends Controller
             if (($response->status() == 200) && ($response1->status() == 200)) {
                 $analysis = $response->json();
                 $resultRecipes = $response1->json()['results'];
-                // dd($Analysis);
                 return view('landingpage.image_analysis', compact('analysis','url','resultRecipes'));
             } else {
                 dd($response->status());
