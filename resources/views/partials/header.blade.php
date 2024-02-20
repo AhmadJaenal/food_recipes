@@ -59,7 +59,7 @@
                                 <span>{{ Auth::user()->name }}</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="{{ route('actionlogout') }}">
+                                <a class="dropdown-item" href="{{ route('actionlogout') }}" style="margin: 0px;">
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
                                     Logout
                                 </a>
