@@ -40,18 +40,12 @@ Route::get('/category-food{type}', [RecipesController::class, 'foodCategory'])->
 
 Route::get('/search-restaurants', [SearchController::class, 'searchRestaurants'])->name('searchRestaurants');
 
-
 Route::get('favorites', [FavoriteController::class, 'favorites'])->name('favorites')->middleware('auth');
-Route::post('addFavorite', [FavoriteController::class, 'addFavorite'])->name('addFavorite');
+Route::post('addFavorite', [FavoriteController::class, 'addFavorite'])->name('addFavorite')->middleware('auth');
 Route::post('removeFavorite', [FavoriteController::class, 'removeFavorite'])->name('removeFavorite')->middleware('auth');
-
 
 Route::get('ingredientSubst{ingredients}', [RecipesController::class, 'IngredientSubstitutes'])->name('ingredientSubst');
 Route::get('imageAnalysis', [RecipesController::class, 'imageAnalysis'])->name('imageAnalysis');
-
-
-// Testing
-Route::get('Testing', [Controller::class, 'Testing'])->name('Testing');
 
 Route::get('/create-blog', [BlogController::class, 'createBlog'])->name('createBlog')->middleware('auth');
 Route::post('/post/{id}/{action}', [BlogController::class, 'postBlog'])->name('postBlog')->middleware('auth');
