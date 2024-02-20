@@ -55,17 +55,16 @@ class BlogController extends Controller
                 $blog->save();
                 Session::flash('success', 'Edit Blog Successfully!');
             }
-            return redirect()->back();
         } catch (\Throwable $th) {
             Session::flash('error', $th->getMessage());
         }
 
-        // return redirect()->back();
+        return redirect()->back();
     }
 
     public function pageBlog()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::where('status', true)->get();
         return view('landingpage.blogPage.page_blog', compact('blogs'));
     }
 
@@ -76,14 +75,14 @@ class BlogController extends Controller
         return view('landingpage.blogPage.detail_blog', compact('detailBlogs', 'blogs'));
     }
 
-    public function deleteBlog($id)
+    public function deleteBlog(Request $request)
     {
         try {
-            $blog = Blog::findOrFail($id);
+            $blog = Blog::where('id', $request->idBlogDelete)->first();
             $blog->delete();
             return redirect()->back()->with('success', 'Blog has been deleted successfully');
         } catch (\Throwable $th) {
-            return redirect()->back()->with('error', 'There is an error');
+            return redirect()->back()->with('error', $th->getMessage());
         }
     }
 
@@ -91,5 +90,14 @@ class BlogController extends Controller
     {
         $blog = Blog::find($id);
         return response()->json($blog);
+    }
+
+    public function publishBlog(Request $request)
+    {
+        $blog = Blog::where('id', $request->idBlogPublish)->first();
+
+        $blog->status = !$blog->status;
+        $blog->save();
+        return redirect()->back()->with('success', 'Blog has been updated successfully');
     }
 }

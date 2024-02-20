@@ -79,10 +79,8 @@
                 </div>
                 <div id="myNav" class="overlay">
                     <div class="overlay-content">
-                        <a href="index.html">Home</a>
-                        <a href="about.html">About</a>
-                        <a href="blog.html">Blog</a>
-                        <a href="testimonial.html">Testimonial</a>
+                        <a href="{{ route('featchRecipes') }}">Home</a>
+                        <a href="{{ route('pageBlog') }}">Blog</a>
                     </div>
                 </div>
             </div>

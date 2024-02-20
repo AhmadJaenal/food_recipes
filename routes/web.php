@@ -58,5 +58,6 @@ Route::get('/create-blog', [BlogController::class, 'createBlog'])->name('createB
 Route::post('/post/{id}/{action}', [BlogController::class, 'postBlog'])->name('postBlog')->middleware('auth');
 Route::get('/page-blog', [BlogController::class, 'pageBlog'])->name('pageBlog')->middleware('auth');
 Route::get('/detail-blog/{id}', [BlogController::class, 'detailBlog'])->name('detailBlog')->middleware('auth');
-Route::get('/delete-blog/{id}', [BlogController::class, 'deleteBlog'])->name('deleteBlog')->middleware('auth');
+Route::get('/delete-blog', [BlogController::class, 'deleteBlog'])->name('deleteBlog')->middleware('auth');
 Route::get('/getBlogData/{id}', [BlogController::class, 'getBlogData'])->name('getBlogData');
+Route::get('/publish-blog', [BlogController::class, 'publishBlog'])->name('publishBlog');

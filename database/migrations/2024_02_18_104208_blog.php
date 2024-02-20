@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('image');
             $table->string('title');
             $table->string('tagline');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

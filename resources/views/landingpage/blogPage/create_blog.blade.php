@@ -15,7 +15,7 @@
         href="{{ asset('https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css') }}">
 
 
-    <title>Search</title>
+    <title>Create Blog</title>
 
 
     <!-- bootstrap core css -->
@@ -226,7 +226,7 @@
     }
 </style>
 
-<body>
+<body class="sub_page">
 
     <form action="{{ route('postBlog', ['id' => Auth()->user()->id, 'action' => 'add']) }}" id="formBlog"
         method="post" enctype="multipart/form-data">
@@ -234,6 +234,54 @@
         <div style="margin: 0">
 
             <div class="hero_area">
+                <header class="header_section">
+                    <div class="container-fluid">
+                        <nav class="navbar navbar-expand-lg custom_nav-container">
+                            <a class="navbar-brand center" href="{{ route('featchRecipes') }}">
+                                <span>
+                                    Delfood Blog
+                                </span>
+                            </a>
+                            <div class="" id="">
+                                <div class="User_option">
+                                    @if (Auth::check())
+                                        <div class="dropdown">
+                                            <a class="btn dropdown-toggle" href="#" role="button"
+                                                id="userDropdown" data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                                <span>{{ Auth::user()->name }}</span>
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                                <a class="dropdown-item" href="{{ route('actionlogout') }}">
+                                                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                                                    Logout
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @else
+                                        <a href="" id="openLoginModal" data-toggle="modal"
+                                            data-target="#loginModal">
+                                            <i class="fa fa-user" aria-hidden="true"></i>
+                                            <span>Login</span>
+                                        </a>
+                                    @endif
+                                </div>
+                                <div class="custom_menu-btn">
+                                    <button onclick="openNav()">
+                                        <img src="images/menu.png" alt="">
+                                    </button>
+                                </div>
+                                <div id="myNav" class="overlay">
+                                    <div class="overlay-content">
+                                        <a href="{{ route('featchRecipes') }}">Home</a>
+                                        <a href="{{ route('pageBlog') }}">Blog</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </header>
 
                 <!-- slider section -->
                 @if (session('success'))
@@ -253,14 +301,14 @@
                             <div class="col-lg-10 mx-auto">
                                 <div class="detail-box">
                                     <input type="text" value="" name="idBlog" id="idBlog" readonly
-                                        style="display: none">
+                                        style="display: none" required>
                                     <h1>
                                         <textarea id="postTitle" class="transparent-input" name="postTitle" rows="3" cols="20"
-                                            placeholder="please enter the title of your blog post" style="line-height: .9"></textarea>
+                                            placeholder="please enter the title of your blog post" style="line-height: .9" required></textarea>
                                     </h1>
                                     <p>
                                         <textarea id="tagLine" class="transparent-input" name="tagLine" rows="2" cols="60"
-                                            placeholder="You can add a short tagline or excerpt from this blog post"></textarea>
+                                            placeholder="You can add a short tagline or excerpt from this blog post" required></textarea>
                                     </p>
                                     {{-- <p id="currentDate"> </p> --}}
                                 </div>
@@ -280,7 +328,7 @@
                                 onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
 
                             <div class="image-upload-wrap">
-                                <input class="file-upload-input" name="image_url" type='file'
+                                <input class="file-upload-input" name="image_url" type='file' required
                                     onchange="readURL(this);" accept="image/*" />
                                 <div class="drag-text">
                                     <h3>Drag and drop a file or select add Image</h3>
@@ -303,12 +351,12 @@
                         <div class="detail-box">
                             <p>
                                 <textarea id="content" class="content" name="content" rows="20" cols="100"
-                                    placeholder="You can add a short tagline or excerpt from this blog post"></textarea>
+                                    placeholder="You can add a short tagline or excerpt from this blog post" required></textarea>
                             </p>
                         </div>
                         <div class="d-grid gap-2 col-6 mx-auto">
                             <input type="text" class="form-control" id="hastag" name="hastag"
-                                placeholder="Hastag">
+                                placeholder="Hastag" required>
                         </div>
                         <div class="d-grid gap-2 col-2 mx-auto mt-2">
                             <button type="submit" class="btn btn-primary" id="submitButton"> Post</button>
@@ -346,24 +394,43 @@
                         </a>
                         <div class="col">
                             <div class="d-flex align-items-center">
-                                <button type="button" class="btn btn-primary me-2">Update</button>
-                                <div class="dropdown">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                        id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        Published
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="#">Action</a>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </div>
-                                </div>
+                                <form action="{{ route('publishBlog') }}" method="get"
+                                    id="publishForm{{ $blog->id }}">
+                                    @csrf
+                                    <input type="text" value="{{ $blog->id }}" name="idBlogPublish">
 
-                                <button type="button" class="btn btn-warning btn-circle btn-lg" data-toggle="modal"
-                                    data-target="#confirmModal" style="margin-left: 5px"><i class="fa fa-times"
-                                        style="color: white"></i>
-                                </button>
+                                    <button type="button"
+                                        class="btn {{ $blog->status ? 'btn-warning' : 'btn-primary' }} me-2"
+                                        data-toggle="modal" data-target="#confirmModalBlog{{ $blog->id }}">
+                                        {{ $blog->status ? 'Blog Published' : 'Not Published' }}
+                                    </button>
+
+                                    <div class="modal fade" id="confirmModalBlog{{ $blog->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="confirmModalBlog{{ $blog->id }}"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to
+                                                    {{ $blog->status ? 'unpublish' : 'publish' }} this blog?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+                                                    <button type="submit" class="btn btn-primary">Confirm</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
 
                                 <button type="button"
                                     class="btn btn-warning btn-circle btn-lg edit-button updateButton"
@@ -371,32 +438,41 @@
                                         class="fa fa-edit" style="color: white"></i>
                                 </button>
 
-                                <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog"
-                                    aria-labelledby="confirmModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Are you sure you want to delete this blog?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary"
-                                                    data-dismiss="modal">Close</button>
-                                                <form action="{{ route('deleteBlog', ['id' => $blog->id]) }}"
-                                                    method="get">
-                                                    @csrf
+                                <form action="{{ route('deleteBlog') }}" method="get"
+                                    id="deleteForm{{ $blog->id }}">
+                                    @csrf
+                                    <input type="hidden" value="{{ $blog->id }}" name="idBlogDelete">
+                                    <button type="button" class="btn btn-warning btn-circle btn-lg"
+                                        data-toggle="modal" data-target="#confirmModal{{ $blog->id }}"
+                                        style="margin-left: 5px">
+                                        <i class="fa fa-times" style="color: white"></i>
+                                    </button>
+
+                                    <div class="modal fade" id="confirmModal{{ $blog->id }}" tabindex="-1"
+                                        role="dialog" aria-labelledby="confirmModalLabel{{ $blog->id }}"
+                                        aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="confirmModalLabel">Confirmation</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Are you sure you want to delete this blog?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary"
+                                                        data-dismiss="modal">Close</button>
+
                                                     <button type="submit" class="btn btn-primary">Confirm</button>
-                                                </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -454,7 +530,7 @@
     });
 </script>
 
-<script>
+{{-- <script>
     const updateButton = document.getElementById('updateButton');
     const submitButton = document.getElementById('submitButton');
 
@@ -467,7 +543,7 @@
     updateButton.addEventListener('click', () => {
         submitButton.textContent = 'Save Changes';
     });
-</script>
+</script> --}}
 
 
 {{-- <script>

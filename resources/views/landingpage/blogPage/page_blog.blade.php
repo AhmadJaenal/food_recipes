@@ -83,10 +83,8 @@
                         </div>
                         <div id="myNav" class="overlay">
                             <div class="overlay-content">
-                                <a href="index.html">Home</a>
-                                <a href="about.html">About</a>
-                                <a href="blog.html">Blog</a>
-                                <a href="testimonial.html">Testimonial</a>
+                                <a href="{{ route('featchRecipes') }}">Home</a>
+                                <a href="{{ route('pageBlog') }}">Blog</a>
                             </div>
                         </div>
                     </div>
@@ -108,24 +106,36 @@
                 </h2>
             </div>
             <div class="row">
-                @foreach ($blogs as $blog)
+                @if (count($blogs) > 0)
+                    @foreach ($blogs as $blog)
+                        <div class="col-sm-6 col-md-3 mx-auto">
+                            <div class="box">
+                                <div class="img-box">
+                                    <img src="blogs/{{ $blog->image }}" class="box-img" alt=""
+                                        style="object-fit: cover; max-width: 100%; height: 300px;">
+                                </div>
+                                <div class="detail-box">
+                                    <h4 style="max-height: 1.2em; overflow: hidden; text-overflow: ellipsis;">
+                                        {{ $blog->title }}
+                                    </h4>
+                                    <a href="{{ route('detailBlog', ['id' => $blog->id]) }}">
+                                        <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
                     <div class="col-sm-6 col-md-3 mx-auto">
                         <div class="box">
-                            <div class="img-box">
-                                <img src="blogs/{{ $blog->image }}" class="box-img" alt=""
-                                    style="object-fit: cover; max-width: 100%; height: 300px;">
-                            </div>
                             <div class="detail-box">
                                 <h4 style="max-height: 1.2em; overflow: hidden; text-overflow: ellipsis;">
-                                    {{ $blog->title }}
+                                    No blogs available
                                 </h4>
-                                <a href="{{ route('detailBlog', ['id' => $blog->id]) }}">
-                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>
-                                </a>
                             </div>
                         </div>
                     </div>
-                @endforeach
+                @endif
             </div>
         </div>
     </section>
