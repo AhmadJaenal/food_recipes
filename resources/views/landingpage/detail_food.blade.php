@@ -15,9 +15,9 @@
     <meta name="author" content="" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Delfood</title>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- bootstrap core css -->
     <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
@@ -79,39 +79,41 @@
 
                     @if (Auth::check())
                         @if ($id_favorite)
-                            <form action="{{ route('removeFavorite', $id_favorite) }}" method="post">
-                                @csrf
-                                <input type="text" name="id_user" hidden value="{{ Auth::user()->id }}">
-                                <input type="text" name="id_recipe" hidden value="{{ $detailRecipe['id'] }}">
-                                <input type="text" name="title" hidden value="{{ $detailRecipe['title'] }}">
-                                <input type="text" name="image" hidden value="{{ $detailRecipe['image'] }}">
-                                <div class="row justify-content-center mt-4">
-                                    <button type="submit" class="btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
-                                            fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
-                                            <path
-                                                d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="row justify-content-center mt-5">
+                                <button id="favorite-btn" class="btn favorite-add-btn" data-id-user="{{ Auth::user()->id }}" data-id-recipe="{{ $detailRecipe['id'] }}" data-title="{{ $detailRecipe['title'] }}" data-image="{{ $detailRecipe['image'] }}" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
+                                        fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+                                </button>
+                            
+                                <button id="remove-favorite-btn" class="btn favorite-remove-btn" data-id-user="{{ Auth::user()->id }}" data-id-recipe="{{ $detailRecipe['id'] }}" data-title="{{ $detailRecipe['title'] }}" data-image="{{ $detailRecipe['image'] }}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
+                                    fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                </svg>
+                                </button>
+                            </div>
                         @else
-                            <form action="{{ route('addFavorite') }}" method="post">
-                                @csrf
-                                <input type="text" name="id_user" hidden value="{{ Auth::user()->id }}">
-                                <input type="text" name="id_recipe" hidden value="{{ $detailRecipe['id'] }}">
-                                <input type="text" name="title" hidden value="{{ $detailRecipe['title'] }}">
-                                <input type="text" name="image" hidden value="{{ $detailRecipe['image'] }}">
-                                <div class="row justify-content-center mt-4">
-                                    <button type="submit" class="btn">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
-                                            fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16">
-                                            <path
-                                                d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
-                                        </svg>
-                                    </button>
-                                </div>
-                            </form>
+                            <div class="row justify-content-center mt-5">
+                                <button id="favorite-btn" class="btn favorite-add-btn" data-id-user="{{ Auth::user()->id }}" data-id-recipe="{{ $detailRecipe['id'] }}" data-title="{{ $detailRecipe['title'] }}" data-image="{{ $detailRecipe['image'] }}" >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
+                                        fill="currentColor" class="bi bi-suit-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="m8 6.236-.894-1.789c-.222-.443-.607-1.08-1.152-1.595C5.418 2.345 4.776 2 4 2 2.324 2 1 3.326 1 4.92c0 1.211.554 2.066 1.868 3.37.337.334.721.695 1.146 1.093C5.122 10.423 6.5 11.717 8 13.447c1.5-1.73 2.878-3.024 3.986-4.064.425-.398.81-.76 1.146-1.093C14.446 6.986 15 6.131 15 4.92 15 3.326 13.676 2 12 2c-.777 0-1.418.345-1.954.852-.545.515-.93 1.152-1.152 1.595zm.392 8.292a.513.513 0 0 1-.784 0c-1.601-1.902-3.05-3.262-4.243-4.381C1.3 8.208 0 6.989 0 4.92 0 2.755 1.79 1 4 1c1.6 0 2.719 1.05 3.404 2.008.26.365.458.716.596.992a7.6 7.6 0 0 1 .596-.992C9.281 2.049 10.4 1 12 1c2.21 0 4 1.755 4 3.92 0 2.069-1.3 3.288-3.365 5.227-1.193 1.12-2.642 2.48-4.243 4.38z" />
+                                    </svg>
+                                </button>
+                            
+                                <button id="remove-favorite-btn" class="btn favorite-remove-btn" data-id-user="{{ Auth::user()->id }}" data-id-recipe="{{ $detailRecipe['id'] }}" data-title="{{ $detailRecipe['title'] }}" data-image="{{ $detailRecipe['image'] }}" style="display: none;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="45" height="45"
+                                    fill="currentColor" class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
+                                    <path
+                                        d="M4 1c2.21 0 4 1.755 4 3.92C8 2.755 9.79 1 12 1s4 1.755 4 3.92c0 3.263-3.234 4.414-7.608 9.608a.513.513 0 0 1-.784 0C3.234 9.334 0 8.183 0 4.92 0 2.755 1.79 1 4 1" />
+                                </svg>
+                                </button>
+                            </div>
                         @endif
                     @endif
                 </div>
@@ -291,3 +293,70 @@
 </body>
 
 </html>
+
+
+<script>
+    $(document).ready(function() {
+        $('.favorite-add-btn').click(function(e) {
+            e.preventDefault();
+            var id_user = $(this).data('id-user');
+            var id_recipe = $(this).data('id-recipe');
+            var title = $(this).data('title');
+            var image = $(this).data('image');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("addFavorite") }}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    id_user: id_user,
+                    id_recipe: id_recipe,
+                    title: title,
+                    image: image
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#favorite-btn').hide();
+                        $('#remove-favorite-btn').show();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+
+        $('.favorite-remove-btn').click(function(e) {
+            e.preventDefault();
+            var id_user = $(this).data('id-user');
+            var id_recipe = $(this).data('id-recipe');
+            var title = $(this).data('title');
+            var image = $(this).data('image');
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route("removeFavorite") }}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    id_user: id_user,
+                    id_recipe: id_recipe,
+                    title: title,
+                    image: image
+                },
+                success: function(response) {
+                    if (response.success) {
+                        $('#favorite-btn').show();
+                        $('#remove-favorite-btn').hide();
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error(xhr.responseText);
+                }
+            });
+        });
+    });
+</script>

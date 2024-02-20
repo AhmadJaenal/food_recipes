@@ -15,19 +15,29 @@ class FavoriteController extends Controller
         return view('landingpage.favorites', compact('favorites'));
     }
     public function addFavorite(Request $request)
-    {
-        $favorite = Favorite::create([
-            'id_user' => Auth::user()->id,
-            'id_recipe' => $request->id_recipe,
-            'title' => $request->title,
-            'image' => $request->image,
-        ]);
-        return redirect()->back();
+    {   
+        $userId = Auth::user()->id;
+        $recipeId = $request->id_recipe;
+        $existingFavorite = Favorite::where('id_user', $userId)
+                                ->where('id_recipe', $recipeId)
+                                ->first();
+        if(!$existingFavorite){
+            $favorite = Favorite::create([
+                'id_user' => $userId,
+                'id_recipe' => $recipeId,
+                'title' => $request->title,
+                'image' => $request->image,
+            ]);
+            return response()->json(['success' => true]);
+        } else{
+            return response()->json(['failed' => true]);
+        }
     }
     public function removeFavorite(Request $request)
     {
         $id_favorite = Favorite::where('id_user', Auth::user()->id)->where('id_recipe', $request->id_recipe)->first()->id;
         $favorite = Favorite::where('id', $id_favorite)->delete();
-        return redirect()->back();
+
+        return response()->json(['success' => true]);
     }
 }
