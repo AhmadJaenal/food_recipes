@@ -17,6 +17,7 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Delfood</title>
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <!-- bootstrap core css -->

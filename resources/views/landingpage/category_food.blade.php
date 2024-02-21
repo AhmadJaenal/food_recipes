@@ -15,6 +15,7 @@
 
 
     <title>Delfood</title>
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
 
 
     <!-- bootstrap core css -->
