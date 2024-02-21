@@ -26,7 +26,7 @@ class SearchController extends Controller
                 $resultRecipes = $response->json()['results'];
                 return view('landingpage.search_page', compact('resultRecipes'));
             } else {
-                dd($response->status());
+                return view('errorpage.error_402');
             }
         }
     }
@@ -47,7 +47,7 @@ class SearchController extends Controller
                 return view('landingpage.search_restaurants', compact('restaurants'));
                 // dd($restaurants);
             } else {
-                dd($response->status());
+                return view('errorpage.error_402');
             }
         }
 
